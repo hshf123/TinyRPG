@@ -18,6 +18,7 @@ public class MapEditor
         GameObject[] gameObjects = Resources.LoadAll<GameObject>("Prefabs/Map");
         foreach (GameObject go in gameObjects)
         {
+            Tilemap env = Util.FindChild<Tilemap>(go, "Env", true);
             Tilemap collision = Util.FindChild<Tilemap>(go, "Collision", true);
             Tilemap portal = Util.FindChild<Tilemap>(go, "Portal", true);
 
@@ -26,14 +27,14 @@ public class MapEditor
 
             using (var writer = File.CreateText($"Assets/Resources/Map/{collisionTxt}.txt"))
             {
-                writer.WriteLine(collision.cellBounds.xMin);
-                writer.WriteLine(collision.cellBounds.xMax);
-                writer.WriteLine(collision.cellBounds.yMin);
-                writer.WriteLine(collision.cellBounds.yMax);
+                writer.WriteLine(env.cellBounds.xMin);
+                writer.WriteLine(env.cellBounds.xMax);
+                writer.WriteLine(env.cellBounds.yMin);
+                writer.WriteLine(env.cellBounds.yMax);
 
-                for (int y = collision.cellBounds.yMax; y >= collision.cellBounds.yMin; y--)
+                for (int y = env.cellBounds.yMax; y >= env.cellBounds.yMin; y--)
                 {
-                    for (int x = collision.cellBounds.xMin; x <= collision.cellBounds.xMax; x++)
+                    for (int x = env.cellBounds.xMin; x <= env.cellBounds.xMax; x++)
                     {
                         TileBase tb = collision.GetTile(new Vector3Int(x, y, 0));
                         if (tb != null)
@@ -47,14 +48,14 @@ public class MapEditor
 
             using (var writer = File.CreateText($"Assets/Resources/Map/{portalTxt}.txt"))
             {
-                writer.WriteLine(portal.cellBounds.xMin);
-                writer.WriteLine(portal.cellBounds.xMax);
-                writer.WriteLine(portal.cellBounds.yMin);
-                writer.WriteLine(portal.cellBounds.yMax);
+                writer.WriteLine(env.cellBounds.xMin);
+                writer.WriteLine(env.cellBounds.xMax);
+                writer.WriteLine(env.cellBounds.yMin);
+                writer.WriteLine(env.cellBounds.yMax);
 
-                for (int y = portal.cellBounds.yMax; y >= portal.cellBounds.yMin; y--)
+                for (int y = env.cellBounds.yMax; y >= env.cellBounds.yMin; y--)
                 {
-                    for (int x = portal.cellBounds.xMin; x <= portal.cellBounds.xMax; x++)
+                    for (int x = env.cellBounds.xMin; x <= env.cellBounds.xMax; x++)
                     {
                         TileBase tb = portal.GetTile(new Vector3Int(x, y, 0));
                         if (tb != null)

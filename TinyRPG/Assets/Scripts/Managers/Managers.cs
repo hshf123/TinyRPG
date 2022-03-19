@@ -8,6 +8,12 @@ public class Managers : MonoBehaviour
     static Managers s_Instance;
     static Managers Instance { get { Init(); return s_Instance; } }
 
+    #region Contents
+    MapManager _map = new MapManager();
+
+    public static MapManager Map { get { return Instance._map; } }
+    #endregion
+
     DataManager _data = new DataManager();
     PoolManager _pool = new PoolManager();
     ResourceManager _resource = new ResourceManager();
@@ -29,6 +35,7 @@ public class Managers : MonoBehaviour
 
     void Update()
     {
+
     }
 
     static void Init()

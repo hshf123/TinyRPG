@@ -10,7 +10,7 @@ public class GameScene : BaseScene
 
         SceneType = Define.Scene.Game;
 
-        Managers.UI.ShowSceneUI<UI_Inven>();
+        Managers.Map.LoadMap("Lobby");
     }
 
     public override void Clear()
