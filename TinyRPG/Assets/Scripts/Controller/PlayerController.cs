@@ -5,7 +5,7 @@ using static Define;
 
 public class PlayerController : MonoBehaviour
 {
-    public float _speed = 5.0f;
+    public float _speed = 15.0f;
 
     Vector3Int _cellPos = Vector3Int.zero + new Vector3Int(1, 0, 0);
     bool _isMoving;
@@ -17,51 +17,51 @@ public class PlayerController : MonoBehaviour
         get { return _dir; }
         set
         {
-            if (_dir != value)
+            if (_dir == value)
+                return;
+            switch (value)
             {
-                switch (value)
-                {
-                    case MoveDir.Up:
-                        _animator.Play("WALK_BACK");
+                case MoveDir.Up:
+                    _animator.Play("WALK_BACK");
+                    transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    break;
+                case MoveDir.Right:
+                    _animator.Play("WALK_RIGHT");
+                    transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    break;
+                case MoveDir.Down:
+                    _animator.Play("WALK_FRONT");
+                    transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    break;
+                case MoveDir.Left:
+                    _animator.Play("WALK_RIGHT");
+                    transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+                    break;
+                case MoveDir.None:
+                    if (_dir == MoveDir.Up)
+                    {
+                        _animator.Play("IDLE_BACK");
                         transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        break;
-                    case MoveDir.Right:
-                        _animator.Play("WALK_RIGHT");
+                    }
+                    else if (_dir == MoveDir.Right)
+                    {
+                        _animator.Play("IDLE_RIGHT");
                         transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        break;
-                    case MoveDir.Down:
-                        _animator.Play("WALK_FRONT");
-                        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        break;
-                    case MoveDir.Left:
-                        _animator.Play("WALK_RIGHT");
+                    }
+                    else if (_dir == MoveDir.Left)
+                    {
+                        _animator.Play("IDLE_RIGHT");
                         transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-                        break;
-                    case MoveDir.None:
-                        if (_dir == MoveDir.Up)
-                        {
-                            _animator.Play("IDLE_BACK");
-                            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        }
-                        else if (_dir == MoveDir.Right)
-                        {
-                            _animator.Play("IDLE_RIGHT");
-                            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        }
-                        else if (_dir == MoveDir.Left)
-                        {
-                            _animator.Play("IDLE_RIGHT");
-                            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-                        }
-                        else
-                        {
-                            _animator.Play("IDLE_FRONT");
-                            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        }
-                        break;
-                }
-                _dir = value;
+                    }
+                    else
+                    {
+                        _animator.Play("IDLE_FRONT");
+                        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    }
+                    break;
             }
+            _dir = value;
+            
         }
     }
 
@@ -134,6 +134,30 @@ public class PlayerController : MonoBehaviour
             {
                 _cellPos = destPos;
                 _isMoving = true;
+                int count = 0;
+                if(Managers.Map.IsPortal(_cellPos))
+                {
+                    foreach(Vector3Int pos in Managers.Map.PortalPos)
+                    {
+                        Define.Scene scene = Define.Scene.Unknown;
+                        switch (count)
+                        {
+                            case 0:
+                                break;
+                            case 1:
+                                scene = Define.Scene.HuntingGround;
+                                break;
+                        }
+
+                        if (pos == _cellPos)
+                        {
+                            Managers.Scene.LoadScene(scene);
+                            break;
+                        }
+
+                        count++;
+                    }
+                }
             }
         }
     }
@@ -158,5 +182,4 @@ public class PlayerController : MonoBehaviour
             _isMoving = true;
         }
     }
-
 }

@@ -18,7 +18,7 @@ public class Define
         Unknown,
         Login,
         Lobby,
-        Game,
+        HuntingGround,
     }
 
     public enum Sound

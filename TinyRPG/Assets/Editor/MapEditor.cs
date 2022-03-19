@@ -22,8 +22,11 @@ public class MapEditor
             Tilemap collision = Util.FindChild<Tilemap>(go, "Collision", true);
             Tilemap portal = Util.FindChild<Tilemap>(go, "Portal", true);
 
-            string collisionTxt = $"{SceneManager.GetActiveScene().name}_Collision";
-            string portalTxt = $"{SceneManager.GetActiveScene().name}_Portal";
+            int index = go.name.LastIndexOf('_') + 1;
+            string sceneName = go.name.Substring(index);
+
+            string collisionTxt = $"{sceneName}_Collision";
+            string portalTxt = $"{sceneName}_Portal";
 
             using (var writer = File.CreateText($"Assets/Resources/Map/{collisionTxt}.txt"))
             {
@@ -57,15 +60,20 @@ public class MapEditor
                 {
                     for (int x = env.cellBounds.xMin; x <= env.cellBounds.xMax; x++)
                     {
-                        TileBase tb = portal.GetTile(new Vector3Int(x, y, 0));
-                        if (tb != null)
-                            writer.Write("1");
-                        else
-                            writer.Write("0");
+                        Tilemap[] portals = portal.GetComponentsInChildren<Tilemap>();
+                        foreach(Tilemap p in portals)
+                        {
+                            TileBase tb = p.GetTile(new Vector3Int(x, y, 0));
+                            if (tb != null)
+                                writer.Write("1");
+                            else
+                                writer.Write("0");
+                        }
                     }
                     writer.WriteLine();
                 }
             }
+            
         }
 
     }
