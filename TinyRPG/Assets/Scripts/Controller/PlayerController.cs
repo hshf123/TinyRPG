@@ -134,29 +134,9 @@ public class PlayerController : MonoBehaviour
             {
                 _cellPos = destPos;
                 _isMoving = true;
-                int count = 0;
                 if(Managers.Map.IsPortal(_cellPos))
                 {
-                    foreach(Vector3Int pos in Managers.Map.PortalPos)
-                    {
-                        Define.Scene scene = Define.Scene.Unknown;
-                        switch (count)
-                        {
-                            case 0:
-                                break;
-                            case 1:
-                                scene = Define.Scene.HuntingGround;
-                                break;
-                        }
-
-                        if (pos == _cellPos)
-                        {
-                            Managers.Scene.LoadScene(scene);
-                            break;
-                        }
-
-                        count++;
-                    }
+                    Portal();
                 }
             }
         }
@@ -180,6 +160,16 @@ public class PlayerController : MonoBehaviour
         {
             transform.position += moveDir.normalized * _speed * Time.deltaTime; // 목적지 방향으로 전진
             _isMoving = true;
+        }
+    }
+    void Portal()
+    {
+        string mapName;
+        Managers.Map.PortalPos.TryGetValue(_cellPos, out mapName);
+        Define.Scene sceneType = Managers.Scene.GetSceneType(mapName);
+        if(sceneType!=Define.Scene.Unknown)
+        {
+            Managers.Scene.LoadScene(sceneType);
         }
     }
 }

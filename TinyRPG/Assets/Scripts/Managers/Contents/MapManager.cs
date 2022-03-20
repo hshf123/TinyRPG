@@ -7,7 +7,7 @@ using UnityEngine;
 public class MapManager
 {
     public Grid CurrentGrid { get; private set; }
-    public List<Vector3Int> PortalPos { get; private set; } = new List<Vector3Int>();
+    public Dictionary<Vector3Int, string> PortalPos { get; private set; } = new Dictionary<Vector3Int, string>();
 
     public int MinX { get; set; }
     public int MaxX { get; set; }
@@ -29,7 +29,7 @@ public class MapManager
         // 충돌 범위 체크
         int x = cellPos.x - MinX;
         int y = MaxY - cellPos.y;
-        return !_collision[y,x]; // collision 배열이 true면 갈 수 없는거고 false면 갈 수 있는 곳
+        return !_collision[y, x]; // collision 배열이 true면 갈 수 없는거고 false면 갈 수 있는 곳
     }
 
     // 포탈인지 체크
@@ -53,6 +53,7 @@ public class MapManager
         if (collision != null)
             collision.SetActive(false);
         GameObject portal = Util.FindChild(go, "Portal", true);
+        Transform[] portalNames = Util.FindChilds<Transform>(portal);
         if (portal != null)
             portal.SetActive(false);
 
@@ -86,6 +87,7 @@ public class MapManager
         xCount = MaxX - MinX + 1;
         yCount = MaxY - MinY + 1;
         _portal = new bool[yCount, xCount];
+        int count = 0;
         for (int y = 0; y < yCount; y++)
         {
             string line = reader.ReadLine();
@@ -95,7 +97,7 @@ public class MapManager
                 if (line[x] == '1')
                 {
                     _portal[y, x] = true;
-                    PortalPos.Add(new Vector3Int(x + MinX, y - MaxY, 0));
+                    PortalPos.Add(new Vector3Int(x + MinX, MaxY - y, 0), portalNames[count++].name);
                 }
                 else
                 {
@@ -113,5 +115,6 @@ public class MapManager
             GameObject.Destroy(map);
             CurrentGrid = null;
         }
+        PortalPos.Clear();
     }
 }

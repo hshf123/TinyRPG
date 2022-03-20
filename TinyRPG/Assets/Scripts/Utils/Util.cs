@@ -14,7 +14,7 @@ public class Util
 
     public static T FindChild<T>(GameObject go, string name = null, bool recursive = false) where T : UnityEngine.Object
     {
-        if (go == null) // null üũ
+        if (go == null) // null 체크
             return null;
 
         if (recursive == false)
@@ -48,5 +48,18 @@ public class Util
         if (transform == null)
             return null;
         return transform.gameObject;
+    }
+
+    public static T[] FindChilds<T>(GameObject go) where T : UnityEngine.Component
+    {
+        T[] results = new T[go.transform.childCount];
+        int count = 0;
+        T[] childs = go.GetComponentsInChildren<T>();
+        foreach(T child in childs)
+        {
+            if (child.name != go.name)
+                results[count++] = child;
+        }
+        return results;
     }
 }

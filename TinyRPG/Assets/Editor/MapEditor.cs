@@ -60,7 +60,7 @@ public class MapEditor
                 {
                     for (int x = env.cellBounds.xMin; x <= env.cellBounds.xMax; x++)
                     {
-                        Tilemap[] portals = portal.GetComponentsInChildren<Tilemap>();
+                        Tilemap[] portals = Util.FindChilds<Tilemap>(portal.gameObject);
                         foreach(Tilemap p in portals)
                         {
                             TileBase tb = p.GetTile(new Vector3Int(x, y, 0));

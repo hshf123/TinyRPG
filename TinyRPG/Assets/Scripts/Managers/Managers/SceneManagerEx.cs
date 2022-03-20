@@ -18,6 +18,18 @@ public class SceneManagerEx
         return System.Enum.GetName(typeof(Define.Scene), type);
     }
 
+    public Define.Scene GetSceneType(string name)
+    {
+        string[] names = System.Enum.GetNames(typeof(Define.Scene));
+        for(int i=0; i<names.Length; i++)
+        {
+            if (name == names[i])
+                return (Define.Scene)i;
+        }
+
+        return Define.Scene.Unknown;
+    }
+
     public void Clear()
     {
         CurrentScene.Clear();
