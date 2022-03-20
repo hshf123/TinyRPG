@@ -116,5 +116,6 @@ public class MapManager
             CurrentGrid = null;
         }
         PortalPos.Clear();
+        Managers.Object.Clear();
     }
 }

@@ -45,6 +45,29 @@ public class CreatureController : MonoBehaviour
         }
     }
 
+    public Vector3Int GetFrontCellPos()
+    {
+        Vector3Int cellPos = CellPos;
+
+        switch(_lastDir)
+        {
+            case MoveDir.Up:
+                cellPos += Vector3Int.up;
+                break;
+            case MoveDir.Right:
+                cellPos += Vector3Int.right;
+                break;
+            case MoveDir.Down:
+                cellPos += Vector3Int.down;
+                break;
+            case MoveDir.Left:
+                cellPos += Vector3Int.left;
+                break;
+        }
+
+        return cellPos;
+    }
+
     protected virtual void UpdateAnimation()
     {
         if(_state == CreatureState.Idle)
@@ -94,6 +117,25 @@ public class CreatureController : MonoBehaviour
         else if (_state == CreatureState.Skill)
         {
             // TODO
+            switch (_lastDir)
+            {
+                case MoveDir.Up:
+                    _animator.Play("ATTACK_BACK");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Right:
+                    _animator.Play("ATTACK_RIGHT");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Down:
+                    _animator.Play("ATTACK_FRONT");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Left:
+                    _animator.Play("ATTACK_RIGHT");
+                    _sprite.flipX = true;
+                    break;
+            }
         }
         else
         {
@@ -121,38 +163,25 @@ public class CreatureController : MonoBehaviour
 
     protected virtual void UpdateController()
     {
-        MoveToNextPos(); 
-        NextPos();
+        switch(State)
+        {
+            case CreatureState.Idle:
+                UpdateIdle();
+                break;
+            case CreatureState.Moving:
+                UpdateMoving();
+                break;
+            case CreatureState.Skill:
+                break;
+            case CreatureState.Dead:
+                break;
+        }
     }
 
     // 크리쳐 이동 관련
-    void MoveToNextPos() // 한 칸 단위로 움직이게끔 해줌
+    protected virtual void UpdateIdle() // 이동가능한 상황인지 체크하고, 갈 수 있는 곳이면 이동.
     {
-        if (State != CreatureState.Moving)
-            return;
-
-        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f, 0); // 목적지 좌표 추출
-        Vector3 moveDir = destPos - transform.position; // 방향 벡터 추출
-
-        // 도착 여부 체크
-        float dist = moveDir.magnitude; // 방향 벡터의 크기 = 목적지 까지의 거리
-        if (dist < _speed * Time.deltaTime) // 한 번에 이동할 수 있는 거리보다 작다고 하면 도착했다고 인정.
-        {
-            transform.position = destPos;
-            // 예외적으로 애니메이션을 직접 컨트롤
-            _state = CreatureState.Idle; // 여기까지만 하면 멈췄을 때 애니메이션이 안나옴
-            if (_dir == MoveDir.None) // 진짜로 키보드를 뗀 상태라면
-                UpdateAnimation();
-        }
-        else
-        {
-            transform.position += moveDir.normalized * _speed * Time.deltaTime; // 목적지 방향으로 전진
-            State = CreatureState.Moving;
-        }
-    }
-    void NextPos() // 이동가능한 상황이면 좌표를 이동한다.
-    {
-        if (State == CreatureState.Idle && _dir != MoveDir.None)
+        if (_dir != MoveDir.None)
         {
             Vector3Int destPos = CellPos; // 목적지가 될 포지션
             switch (Dir)
@@ -180,5 +209,34 @@ public class CreatureController : MonoBehaviour
                 }
             }
         }
+    }
+    protected virtual void UpdateMoving() // 움직일 때 한칸 단위로 움직이게 해준다.
+    {
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f, 0); // 목적지 좌표 추출
+        Vector3 moveDir = destPos - transform.position; // 방향 벡터 추출
+
+        // 도착 여부 체크
+        float dist = moveDir.magnitude; // 방향 벡터의 크기 = 목적지 까지의 거리
+        if (dist < _speed * Time.deltaTime) // 한 번에 이동할 수 있는 거리보다 작다고 하면 도착했다고 인정.
+        {
+            transform.position = destPos;
+            // 예외적으로 애니메이션을 직접 컨트롤
+            _state = CreatureState.Idle; // 여기까지만 하면 멈췄을 때 애니메이션이 안나옴
+            if (_dir == MoveDir.None) // 진짜로 키보드를 뗀 상태라면
+                UpdateAnimation();
+        }
+        else
+        {
+            transform.position += moveDir.normalized * _speed * Time.deltaTime; // 목적지 방향으로 전진
+            State = CreatureState.Moving;
+        }
+    }
+    protected virtual void UpdateSkill()
+    {
+
+    }
+    protected virtual void UpdateDead()
+    {
+
     }
 }
