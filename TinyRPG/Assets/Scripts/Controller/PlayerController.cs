@@ -6,10 +6,85 @@ using static Define;
 public class PlayerController : CreatureController
 {
     Coroutine _coSkill;
+    bool _aors;
 
     protected override void Init()
     {
         base.Init();
+    }
+
+    protected override void UpdateAnimation()
+    {
+        if (_state == CreatureState.Idle)
+        {
+            switch (_lastDir)
+            {
+                case MoveDir.Up:
+                    _animator.Play("IDLE_BACK");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Right:
+                    _animator.Play("IDLE_RIGHT");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Left:
+                    _animator.Play("IDLE_RIGHT");
+                    _sprite.flipX = true;
+                    break;
+                case MoveDir.Down:
+                    _animator.Play("IDLE_FRONT");
+                    _sprite.flipX = false;
+                    break;
+            }
+        }
+        else if (_state == CreatureState.Moving)
+        {
+            switch (_dir)
+            {
+                case MoveDir.Up:
+                    _animator.Play("WALK_BACK");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Right:
+                    _animator.Play("WALK_RIGHT");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Down:
+                    _animator.Play("WALK_FRONT");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Left:
+                    _animator.Play("WALK_RIGHT");
+                    _sprite.flipX = true;
+                    break;
+            }
+        }
+        else if (_state == CreatureState.Skill)
+        {
+            switch (_lastDir)
+            {
+                case MoveDir.Up:
+                    _animator.Play(_aors ? "ATTACK_BACK" : "ATTACK_WEAPON_BACK");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Right:
+                    _animator.Play(_aors ? "ATTACK_RIGHT" : "ATTACK_WEAPON_RIGHT");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Down:
+                    _animator.Play(_aors ? "ATTACK_FRONT" : "ATTACK_WEAPON_FRONT");
+                    _sprite.flipX = false;
+                    break;
+                case MoveDir.Left:
+                    _animator.Play(_aors ? "ATTACK_RIGHT" : "ATTACK_WEAPON_RIGHT");
+                    _sprite.flipX = true;
+                    break;
+            }
+        }
+        else
+        {
+            // TODO
+        }
     }
 
     protected override void UpdateController()
@@ -64,8 +139,13 @@ public class PlayerController : CreatureController
     {
         if (Input.GetKey(KeyCode.A))
         {
-            State = CreatureState.Skill;
             _coSkill = StartCoroutine("CoAutoAttack");
+            State = CreatureState.Skill;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            _coSkill = StartCoroutine("CoArrowSkill");
+            State = CreatureState.Skill;
         }
     }
     void Portal() // 해당 좌표의 포탈이 어디로 이어지는지 찾고 해당 씬을 로드
@@ -85,11 +165,28 @@ public class PlayerController : CreatureController
         GameObject go = Managers.Object.Find(GetFrontCellPos());
         if (go != null)
         {
-            Debug.Log(go.name);
+            CreatureController cc = go.GetComponent<CreatureController>();
+            if (cc != null)
+                cc.OnDamage();
         }
 
         // 대기 시간
-        yield return new WaitForSeconds(0.5f);
+        _aors = true;
+        yield return new WaitForSeconds(0.3f);
+        State = CreatureState.Idle;
+        _coSkill = null;
+    }
+
+    IEnumerator CoArrowSkill()
+    {
+        GameObject arrow = Managers.Resource.Instantiate("Misc/Arrow");
+        ArrowController ac = arrow.GetComponent<ArrowController>();
+        ac.Dir = _lastDir;
+        ac.CellPos = CellPos;
+
+        // 대기 시간
+        _aors = false;
+        yield return new WaitForSeconds(0.3f);
         State = CreatureState.Idle;
         _coSkill = null;
     }

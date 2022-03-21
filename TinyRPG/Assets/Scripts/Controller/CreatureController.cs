@@ -3,72 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
-public class CreatureController : MonoBehaviour
+public class CreatureController : BaseController
 {
-    public float _speed = 15.0f;
-
-    public Vector3Int CellPos { get; set; } = Vector3Int.zero + new Vector3Int(1, 0, 0);
-    protected Animator _animator;
-    protected SpriteRenderer _sprite;
-
-    CreatureState _state = CreatureState.Idle;
-    public CreatureState State
-    {
-        get { return _state; }
-        set 
-        {
-            if (_state == value)
-                return;
-
-            _state = value;
-            // 애니메이션 처리
-            UpdateAnimation();
-
-        }
-    }
-
-    MoveDir _lastDir = MoveDir.Down; // 마지막으로 바라보고있던 방향
-    MoveDir _dir = MoveDir.Down;
-    public MoveDir Dir
-    {
-        get { return _dir; }
-        set
-        {
-            if (_dir == value)
-                return;
-
-            _dir = value;
-            if (value != MoveDir.None)
-                _lastDir = value;
-
-            UpdateAnimation();
-        }
-    }
-
-    public Vector3Int GetFrontCellPos()
-    {
-        Vector3Int cellPos = CellPos;
-
-        switch(_lastDir)
-        {
-            case MoveDir.Up:
-                cellPos += Vector3Int.up;
-                break;
-            case MoveDir.Right:
-                cellPos += Vector3Int.right;
-                break;
-            case MoveDir.Down:
-                cellPos += Vector3Int.down;
-                break;
-            case MoveDir.Left:
-                cellPos += Vector3Int.left;
-                break;
-        }
-
-        return cellPos;
-    }
-
-    protected virtual void UpdateAnimation()
+    protected override void UpdateAnimation()
     {
         if(_state == CreatureState.Idle)
         {
@@ -154,14 +91,14 @@ public class CreatureController : MonoBehaviour
         UpdateController();
     }
 
-    protected virtual void Init()
+    protected override void Init()
     {
         _animator = GetComponent<Animator>();
         Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f, 0);
         transform.position = pos;
     }
 
-    protected virtual void UpdateController()
+    protected override void UpdateController()
     {
         switch(State)
         {
@@ -179,7 +116,7 @@ public class CreatureController : MonoBehaviour
     }
 
     // 크리쳐 이동 관련
-    protected virtual void UpdateIdle() // 이동가능한 상황인지 체크하고, 갈 수 있는 곳이면 이동.
+    protected override void UpdateIdle() // 이동가능한 상황인지 체크하고, 갈 수 있는 곳이면 이동.
     {
         if (_dir != MoveDir.None)
         {
@@ -210,7 +147,7 @@ public class CreatureController : MonoBehaviour
             }
         }
     }
-    protected virtual void UpdateMoving() // 움직일 때 한칸 단위로 움직이게 해준다.
+    protected override void UpdateMoving() // 움직일 때 한칸 단위로 움직이게 해준다.
     {
         Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f, 0); // 목적지 좌표 추출
         Vector3 moveDir = destPos - transform.position; // 방향 벡터 추출
@@ -231,12 +168,23 @@ public class CreatureController : MonoBehaviour
             State = CreatureState.Moving;
         }
     }
-    protected virtual void UpdateSkill()
+    protected override void UpdateSkill()
     {
 
     }
-    protected virtual void UpdateDead()
+    protected override void UpdateDead()
     {
 
+    }
+
+    // 피격 판정
+    public virtual void OnDamage()
+    {
+        GameObject effect = Managers.Resource.Instantiate("Effect/DeathEffect");
+        effect.transform.position = gameObject.transform.position;
+        effect.GetComponent<Animator>().Play("DEATH_EFFECT");
+        GameObject.Destroy(effect, 0.5f);
+        Managers.Object.Remove(gameObject);
+        Managers.Resource.Destroy(gameObject);
     }
 }
