@@ -16,7 +16,7 @@ public class HuntingGroundScene : BaseScene
         Managers.Object.Add(player);
 
         // 몬스터 스폰
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             GameObject mole = Managers.Resource.Instantiate("Creature/Mole");
             GameObject redHero = Managers.Resource.Instantiate("Creature/RedHero");

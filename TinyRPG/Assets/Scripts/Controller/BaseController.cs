@@ -5,13 +5,15 @@ using static Define;
 
 public class BaseController : MonoBehaviour
 {
-    public float _speed = 10.0f;
+    [SerializeField]
+    protected float _speed = 10.0f;
 
     public Vector3Int CellPos { get; set; } = Vector3Int.zero + new Vector3Int(1, 0, 0);
     protected Animator _animator;
     protected SpriteRenderer _sprite;
 
     protected CreatureState _state = CreatureState.Idle;
+    [SerializeField]
     public virtual CreatureState State
     {
         get { return _state; }
