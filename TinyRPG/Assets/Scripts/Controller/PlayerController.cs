@@ -93,7 +93,6 @@ public class PlayerController : CreatureController
         {
             case CreatureState.Idle:
                 GetDirInput();
-                GetIdleInput();
                 break;
             case CreatureState.Moving:
                 GetDirInput();
@@ -112,6 +111,27 @@ public class PlayerController : CreatureController
     }
 
     // 플레이어 이동 관련
+    protected override void UpdateIdle()
+    {
+        // 이동 상태로 갈지 확인
+        if(Dir!=MoveDir.None)
+        {
+            State = CreatureState.Moving;
+            return;
+        }
+
+        // 스킬 상태로 갈지 확인
+        if (Input.GetKey(KeyCode.A))
+        {
+            _coSkill = StartCoroutine("CoAutoAttack");
+            State = CreatureState.Skill;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            _coSkill = StartCoroutine("CoArrowSkill");
+            State = CreatureState.Skill;
+        }
+    }
     void GetDirInput()
     {
         if (Input.GetKey(KeyCode.UpArrow))
@@ -133,19 +153,6 @@ public class PlayerController : CreatureController
         else
         {
             Dir = MoveDir.None;
-        }
-    }
-    void GetIdleInput()
-    {
-        if (Input.GetKey(KeyCode.A))
-        {
-            _coSkill = StartCoroutine("CoAutoAttack");
-            State = CreatureState.Skill;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            _coSkill = StartCoroutine("CoArrowSkill");
-            State = CreatureState.Skill;
         }
     }
     void Portal() // 해당 좌표의 포탈이 어디로 이어지는지 찾고 해당 씬을 로드

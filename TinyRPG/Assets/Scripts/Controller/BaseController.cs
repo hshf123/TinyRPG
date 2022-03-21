@@ -5,14 +5,14 @@ using static Define;
 
 public class BaseController : MonoBehaviour
 {
-    public float _speed = 15.0f;
+    public float _speed = 10.0f;
 
     public Vector3Int CellPos { get; set; } = Vector3Int.zero + new Vector3Int(1, 0, 0);
     protected Animator _animator;
     protected SpriteRenderer _sprite;
 
     protected CreatureState _state = CreatureState.Idle;
-    public CreatureState State
+    public virtual CreatureState State
     {
         get { return _state; }
         set
@@ -179,36 +179,9 @@ public class BaseController : MonoBehaviour
     }
 
     // 물체 이동 관련
-    protected virtual void UpdateIdle() // 이동가능한 상황인지 체크하고, 갈 수 있는 곳이면 이동.
+    protected virtual void UpdateIdle()
     {
-        if (_dir != MoveDir.None)
-        {
-            Vector3Int destPos = CellPos; // 목적지가 될 포지션
-            switch (Dir)
-            {
-                case MoveDir.Up:
-                    destPos += Vector3Int.up;
-                    break;
-                case MoveDir.Right:
-                    destPos += Vector3Int.right;
-                    break;
-                case MoveDir.Down:
-                    destPos += Vector3Int.down;
-                    break;
-                case MoveDir.Left:
-                    destPos += Vector3Int.left;
-                    break;
-            }
-
-            State = CreatureState.Moving;
-            if (Managers.Map.CanGo(destPos))
-            {
-                if (Managers.Object.Find(destPos) == null)
-                {
-                    CellPos = destPos;
-                }
-            }
-        }
+        
     }
     protected virtual void UpdateMoving() // 움직일 때 한칸 단위로 움직이게 해준다.
     {
@@ -220,15 +193,45 @@ public class BaseController : MonoBehaviour
         if (dist < _speed * Time.deltaTime) // 한 번에 이동할 수 있는 거리보다 작다고 하면 도착했다고 인정.
         {
             transform.position = destPos;
-            // 예외적으로 애니메이션을 직접 컨트롤
-            _state = CreatureState.Idle; // 여기까지만 하면 멈췄을 때 애니메이션이 안나옴
-            if (_dir == MoveDir.None) // 진짜로 키보드를 뗀 상태라면
-                UpdateAnimation();
+            // 다음칸 이동
+            MoveToNextPos();
         }
         else
         {
             transform.position += moveDir.normalized * _speed * Time.deltaTime; // 목적지 방향으로 전진
             State = CreatureState.Moving;
+        }
+    }
+    protected virtual void MoveToNextPos()
+    {
+        if(_dir == MoveDir.None)
+        {
+            State = CreatureState.Idle;
+            return;
+        }
+        Vector3Int destPos = CellPos; // 목적지가 될 포지션
+        switch (Dir)
+        {
+            case MoveDir.Up:
+                destPos += Vector3Int.up;
+                break;
+            case MoveDir.Right:
+                destPos += Vector3Int.right;
+                break;
+            case MoveDir.Down:
+                destPos += Vector3Int.down;
+                break;
+            case MoveDir.Left:
+                destPos += Vector3Int.left;
+                break;
+        }
+
+        if (Managers.Map.CanGo(destPos))
+        {
+            if (Managers.Object.Find(destPos) == null)
+            {
+                CellPos = destPos;
+            }
         }
     }
     protected virtual void UpdateSkill()
