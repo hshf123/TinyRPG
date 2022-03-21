@@ -25,7 +25,9 @@ public class ArrowController : BaseController
                 break;
         }
 
-        base.Init();
+        _animator = GetComponent<Animator>();
+        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.8f, 0);
+        transform.position = pos;
     }
 
     protected override void UpdateAnimation() // 굳이 실행해 줄 애니메이션이 없으므로 빈 깡통으로 둬서 우회
@@ -80,6 +82,27 @@ public class ArrowController : BaseController
                 // 화살은 자기 자신 소멸, +피격 이펙트 넣어줄까?
                 Managers.Resource.Destroy(gameObject);
             }
+        }
+    }
+    protected override void UpdateMoving() // 움직일 때 한칸 단위로 움직이게 해준다.
+    {
+        Vector3 destPos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.8f, 0); // 목적지 좌표 추출
+        Vector3 moveDir = destPos - transform.position; // 방향 벡터 추출
+
+        // 도착 여부 체크
+        float dist = moveDir.magnitude; // 방향 벡터의 크기 = 목적지 까지의 거리
+        if (dist < _speed * Time.deltaTime) // 한 번에 이동할 수 있는 거리보다 작다고 하면 도착했다고 인정.
+        {
+            transform.position = destPos;
+            // 예외적으로 애니메이션을 직접 컨트롤
+            _state = CreatureState.Idle; // 여기까지만 하면 멈췄을 때 애니메이션이 안나옴
+            if (_dir == MoveDir.None) // 진짜로 키보드를 뗀 상태라면
+                UpdateAnimation();
+        }
+        else
+        {
+            transform.position += moveDir.normalized * _speed * Time.deltaTime; // 목적지 방향으로 전진
+            State = CreatureState.Moving;
         }
     }
 }
