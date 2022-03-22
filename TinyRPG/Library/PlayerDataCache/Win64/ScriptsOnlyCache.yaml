@@ -54,7 +54,7 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 5796}
+      Script: {instanceID: 5800}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -89,9 +89,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: -592}
     - Class: 114
-      Script: {instanceID: 656}
+      Script: {instanceID: 654}
     - Class: 114
-      Script: {instanceID: 1488}
+      Script: {instanceID: 1486}
     - Class: 114
       Script: {instanceID: 2910}
     - Class: 114
@@ -99,11 +99,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3338}
     - Class: 114
-      Script: {instanceID: 4000}
+      Script: {instanceID: 4004}
     - Class: 114
-      Script: {instanceID: 4626}
+      Script: {instanceID: 4630}
     - Class: 114
-      Script: {instanceID: 5714}
+      Script: {instanceID: 5718}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157

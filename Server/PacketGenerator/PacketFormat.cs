@@ -70,6 +70,7 @@ class PacketManager
 		// {1} MsgId _붙인거
 		public static string managerRegisterFormat =
 @"		_onRecv.Add((ushort)MsgId.{0}, MakePacket<{1}>);
-		_handler.Add((ushort)MsgId.{0}, PacketHandler.{1}Handler);";
+		_handler.Add((ushort)MsgId.{0}, PacketHandler.{1}Handler);
+";
 	}
 }
