@@ -10,6 +10,8 @@ public abstract class BaseScene : MonoBehaviour
     void Awake()
     {
         Init();
+
+        Screen.SetResolution(800, 600, false);
     }
 
     void Start()
