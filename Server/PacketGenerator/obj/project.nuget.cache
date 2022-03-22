@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "WoM9Ne83LVDqcrMWVMg1//DN1HWlvgWdEFVe8miV4l+pc7554sUsDihx1HNth2Bq/GsFMXXCaLg4JFBQTFozvg==",
+  "success": true,
+  "projectFilePath": "C:\\hshf123\\Unity_Projects\\TinyRPG\\Server\\PacketGenerator\\PacketGenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Han sanghyun\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",
+    "C:\\Users\\Han sanghyun\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\Han sanghyun\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
+  ],
+  "logs": []
+}

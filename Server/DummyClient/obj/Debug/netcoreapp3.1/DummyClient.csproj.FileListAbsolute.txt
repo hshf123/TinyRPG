@@ -1,0 +1,17 @@
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.exe
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.deps.json
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.runtimeconfig.json
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.runtimeconfig.dev.json
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.dll
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\bin\Debug\netcoreapp3.1\DummyClient.pdb
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\bin\Debug\netcoreapp3.1\ServerCore.dll
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\bin\Debug\netcoreapp3.1\ServerCore.pdb
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.csproj.AssemblyReference.cache
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.GeneratedMSBuildEditorConfig.editorconfig
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.AssemblyInfoInputs.cache
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.AssemblyInfo.cs
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.csproj.CoreCompileInputs.cache
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.csproj.CopyComplete
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.dll
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.pdb
+C:\hshf123\Unity_Projects\TinyRPG\Server\DummyClient\obj\Debug\netcoreapp3.1\DummyClient.genruntimeconfig.cache
