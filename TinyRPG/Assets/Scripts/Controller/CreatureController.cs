@@ -140,7 +140,8 @@ public class CreatureController : BaseController
         effect.transform.position = gameObject.transform.position;
         effect.GetComponent<Animator>().Play("DEATH_EFFECT");
         GameObject.Destroy(effect, 0.5f);
-        Managers.Object.Remove(gameObject);
+
+        Managers.Object.Remove(Id);
         Managers.Resource.Destroy(gameObject);
     }
 }

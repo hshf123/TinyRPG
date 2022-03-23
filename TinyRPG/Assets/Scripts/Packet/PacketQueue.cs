@@ -16,11 +16,11 @@ public class PacketQueue
     Queue<PacketMessage> _packetQueue = new Queue<PacketMessage>();
     object _lock = new object();
 
-    public void Push(PacketMessage packet)
+    public void Push(ushort id, IMessage packet)
     {
-        lock(_lock)
+        lock (_lock)
         {
-            _packetQueue.Enqueue(packet);
+            _packetQueue.Enqueue(new PacketMessage { Id = id, Message = packet });
         }
     }
 

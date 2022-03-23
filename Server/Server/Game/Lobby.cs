@@ -6,6 +6,9 @@ namespace Server.Game
 {
     public class Lobby : Scenes
     {
-        
+        public Lobby()
+        {
+            SceneType = Define.Scene.Lobby;
+        }
     }
 }

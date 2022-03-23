@@ -11,9 +11,7 @@ public class LobbyScene : BaseScene
         SceneType = Define.Scene.Lobby;
         Managers.Map.LoadMap("Lobby");
 
-        //GameObject player = Managers.Resource.Instantiate("Creature/Player");
-        //player.name = "Player";
-        //Managers.Object.Add(player);
+        
     }
 
     private void Update()

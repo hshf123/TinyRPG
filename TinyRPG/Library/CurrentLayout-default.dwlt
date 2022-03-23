@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 3440
     height: 1357
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Console
   m_RootView: {fileID: 4}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 443, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 43
+  controlID: 23
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_MinSize: {x: 276, y: 192}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 186
+  controlID: 188
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -812,9 +812,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 0a0d0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: c4f4ffff76f6ffffa0f6ffffa2f6ffffa6f6ffffe6f6ffff10f7fffff2f7fffff8f7ffff5efbffff
+      m_ExpandedIDs: 5efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -876,22 +876,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Scenes
+    - Assets/Scripts/Controller
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Scenes
+  - Assets/Scripts/Controller
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\hshf123\Unity_Projects\TinyRPG\TinyRPG
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: f44c0000
-    m_LastClickedID: 19700
-    m_ExpandedIDs: 00000000384600003a4600003c4600003e46000040460000424600004446000046460000484600004a4600004c4600004e4600005046000052460000544600005646000000ca9a3b
+    m_SelectedIDs: ec4c0000
+    m_LastClickedID: 19692
+    m_ExpandedIDs: 00000000384600003a4600003c4600003e46000040460000424600004446000046460000484600004a4600004c4600004e46000050460000524600005446000056460000e84c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
