@@ -1,3 +1,4 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class LobbyScene : BaseScene
     {
         base.Init();
 
-        SceneType = Define.Scene.Lobby;
+        Type = SceneType.Lobby;
         Managers.Map.LoadMap("Lobby");
 
         

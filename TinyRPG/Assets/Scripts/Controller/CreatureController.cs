@@ -1,3 +1,4 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class CreatureController : BaseController
 {
     protected override void UpdateAnimation()
     {
-        if(_state == CreatureState.Idle)
+        if(State == CreatureState.Idle)
         {
             switch(_lastDir)
             {
@@ -29,9 +30,9 @@ public class CreatureController : BaseController
                     break;
             }
         }
-        else if(_state == CreatureState.Moving)
+        else if(State == CreatureState.Moving)
         {
-            switch (_dir)
+            switch (Dir)
             {
                 case MoveDir.Up:
                     _animator.Play("WALK_BACK");
@@ -51,7 +52,7 @@ public class CreatureController : BaseController
                     break;
             }
         }
-        else if (_state == CreatureState.Skill)
+        else if (State == CreatureState.Skill)
         {
             // TODO
             switch (_lastDir)
@@ -82,7 +83,6 @@ public class CreatureController : BaseController
 
     void Start()
     {
-        _sprite = GetComponent<SpriteRenderer>();
         Init();
     }
 
@@ -93,9 +93,14 @@ public class CreatureController : BaseController
 
     protected override void Init()
     {
+        _sprite = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f, 0);
         transform.position = pos;
+
+        State = CreatureState.Idle;
+        Dir = MoveDir.None;
+        UpdateAnimation();
     }
 
     protected override void UpdateController()

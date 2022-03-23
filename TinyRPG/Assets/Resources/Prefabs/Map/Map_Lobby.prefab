@@ -25212,7 +25212,7 @@ GameObject:
   - component: {fileID: 5286985455091100548}
   - component: {fileID: 7745731750198105621}
   m_Layer: 0
-  m_Name: HuntingGround
+  m_Name: Huntingground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

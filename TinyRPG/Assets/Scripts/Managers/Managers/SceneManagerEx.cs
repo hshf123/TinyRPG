@@ -1,3 +1,4 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,27 +8,27 @@ public class SceneManagerEx
 {
     public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
 
-    public void LoadScene(Define.Scene type)
+    public void LoadScene(SceneType type)
     {
         Managers.Clear();
         SceneManager.LoadScene(GetSceneName(type));
     }
 
-    public string GetSceneName(Define.Scene type)
+    public string GetSceneName(SceneType type)
     {
-        return System.Enum.GetName(typeof(Define.Scene), type);
+        return System.Enum.GetName(typeof(SceneType), type);
     }
 
-    public Define.Scene GetSceneType(string name)
+    public SceneType GetSceneType(string name)
     {
-        string[] names = System.Enum.GetNames(typeof(Define.Scene));
+        string[] names = System.Enum.GetNames(typeof(SceneType));
         for(int i=0; i<names.Length; i++)
         {
             if (name == names[i])
-                return (Define.Scene)i;
+                return (SceneType)i;
         }
 
-        return Define.Scene.Unknown;
+        return SceneType.Unknown;
     }
 
     public void Clear()

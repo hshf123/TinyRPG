@@ -24512,7 +24512,7 @@ GameObject:
   - component: {fileID: 3303230612698987781}
   - component: {fileID: 3303230612698987780}
   m_Layer: 0
-  m_Name: Map_HuntingGround
+  m_Name: Map_Huntingground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

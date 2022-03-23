@@ -9,7 +9,7 @@ public class LoginScene : BaseScene
     {
         base.Init();
 
-        SceneType = Define.Scene.Login;
+        //Type = Define.Scene.Login;
     }
 
     private void Update()

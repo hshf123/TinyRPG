@@ -7,7 +7,7 @@ namespace Server.Game
 {
     public class Player
     {
-        public PlayerInfo Info { get; set; } = new PlayerInfo();
+        public PlayerInfo Info { get; set; } = new PlayerInfo() { PosInfo = new PositionInfo() };
         public Scenes Scene { get; set; } // 플레이어가 어떤 씬에 있는지
         public ClientSession Session { get; set; }
     }

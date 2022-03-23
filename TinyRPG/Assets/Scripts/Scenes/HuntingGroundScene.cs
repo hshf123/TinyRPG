@@ -1,15 +1,16 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HuntingGroundScene : BaseScene
+public class HuntinggroundScene : BaseScene
 {
     protected override void Init()
     {
         base.Init();
 
-        SceneType = Define.Scene.HuntingGround;
-        Managers.Map.LoadMap("HuntingGround");
+        Type = SceneType.Huntingground;
+        Managers.Map.LoadMap("Huntingground");
 
         //GameObject player = Managers.Resource.Instantiate("Creature/Player");
         //player.name = "Player";

@@ -1,6 +1,8 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Define;
 
 public class MyPlayerController : PlayerController
@@ -54,6 +56,42 @@ public class MyPlayerController : PlayerController
             State = CreatureState.Skill;
         }
     }
+    protected override void MoveToNextPos()
+    {
+        if (Dir == MoveDir.None)
+        {
+            State = CreatureState.Idle;
+            CheckUpdatedFlag();
+            return;
+        }
+
+        Vector3Int destPos = CellPos; // 목적지가 될 포지션
+        switch (Dir)
+        {
+            case MoveDir.Up:
+                destPos += Vector3Int.up;
+                break;
+            case MoveDir.Right:
+                destPos += Vector3Int.right;
+                break;
+            case MoveDir.Down:
+                destPos += Vector3Int.down;
+                break;
+            case MoveDir.Left:
+                destPos += Vector3Int.left;
+                break;
+        }
+
+        if (Managers.Map.CanGo(destPos))
+        {
+            if (Managers.Object.Find(destPos) == null)
+            {
+                CellPos = destPos;
+            }
+        }
+
+        CheckUpdatedFlag();
+    }
 
     void GetDirInput()
     {
@@ -82,10 +120,20 @@ public class MyPlayerController : PlayerController
     {
         string mapName;
         Managers.Map.PortalPos.TryGetValue(CellPos, out mapName);
-        Define.Scene sceneType = Managers.Scene.GetSceneType(mapName);
-        if (sceneType != Define.Scene.Unknown)
+        SceneType sceneType = Managers.Scene.GetSceneType(mapName);
+        if (sceneType != SceneType.Unknown)
         {
             Managers.Scene.LoadScene(sceneType);
+        }
+    }
+    void CheckUpdatedFlag() // flag를 체크해서 상태변화(State, Position, Dir)가 일어나면 패킷을 전송
+    {
+        if(_updated)
+        {
+            C_Move movePacket = new C_Move();
+            movePacket.PosInfo = PosInfo;
+            Managers.Network.Send(movePacket);
+            _updated = false;
         }
     }
 }

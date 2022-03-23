@@ -2,15 +2,17 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - ArrowController
-    - HuntingGroundScene
+    - HuntinggroundScene
     - LobbyScene
     - MonsterController
+    - MyPlayerController
     - PlayerController
     - SkillMonsterController
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
     - UnityEditor.Tilemaps.GridBrushEditor
@@ -40,7 +42,7 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
   sceneClasses:
-    Assets/Scenes/HuntingGround.unity:
+    Assets/Scenes/Huntingground.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -54,7 +56,7 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 5800}
+      Script: {instanceID: 5802}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -99,11 +101,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3338}
     - Class: 114
-      Script: {instanceID: 4004}
+      Script: {instanceID: 3910}
     - Class: 114
-      Script: {instanceID: 4630}
+      Script: {instanceID: 4006}
     - Class: 114
-      Script: {instanceID: 5718}
+      Script: {instanceID: 4632}
+    - Class: 114
+      Script: {instanceID: 5720}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -447,6 +451,12 @@ ScriptsOnlyBuild:
     className: UI_EventHandler
   - hash:
       serializedVersion: 2
+      Hash: 3cf156985df62fac63708d6bed3583bf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MyPlayerController
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -708,7 +718,7 @@ ScriptsOnlyBuild:
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: HuntingGroundScene
+    className: HuntinggroundScene
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -736,5 +746,5 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/Lobby.unity
-  - Assets/Scenes/HuntingGround.unity
+  - Assets/Scenes/Huntingground.unity
   playerPath: C:/hshf123/Unity_Projects/TinyRPG/TinyRPG/../Build/Win64/TinyRPG2/TinyRPG2.exe

@@ -1,4 +1,5 @@
-﻿using Google.Protobuf.Protocol;
+﻿using Google.Protobuf;
+using Google.Protobuf.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Server.Game
 
         object _lock = new object();
 
-        protected Define.Scene SceneType { get; set; } = Define.Scene.Unknown;
+        //protected SceneType sceneType { get; set; } = SceneType.Unknown;
         List<Player> _players = new List<Player>();
 
         public void EnterGame(Player newPlayer)
@@ -76,6 +77,18 @@ namespace Server.Game
                 {
                     if (p != player)
                         p.Session.Send(despawnPacket);
+                }
+            }
+        }
+
+        // 속해있는 씬에 있는 모두에게 브로드 캐스트
+        public void Broadcast(IMessage packet)
+        { 
+            lock(_lock)
+            {
+                foreach(Player p in _players)
+                {
+                    p.Session.Send(packet);
                 }
             }
         }

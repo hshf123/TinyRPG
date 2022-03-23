@@ -1,3 +1,4 @@
+using Google.Protobuf.Protocol;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,42 +11,70 @@ public class BaseController : MonoBehaviour
     [SerializeField]
     protected float _speed = 10.0f;
 
-    public Vector3Int CellPos { get; set; } = Vector3Int.zero + new Vector3Int(1, 0, 0);
+    protected bool _updated = false;
+
+    PositionInfo _positioniInfo = new PositionInfo();
+    public PositionInfo PosInfo 
+    {
+        get { return _positioniInfo; }
+        set
+        {
+            if (_positioniInfo.Equals(value))
+                return;
+
+            CellPos = new Vector3Int(value.PosX, value.PosY, 0);
+            State = value.State;
+            Dir = value.MoveDir;
+        }
+    }
+
+    public Vector3Int CellPos 
+    {
+        get { return new Vector3Int(PosInfo.PosX, PosInfo.PosY, 0); }
+        set
+        {
+            if (PosInfo.PosX == value.x && PosInfo.PosY == value.y)
+                return;
+
+            PosInfo.PosX = value.x;
+            PosInfo.PosY = value.y;
+            _updated = true;
+        }
+    }
     protected Animator _animator;
     protected SpriteRenderer _sprite;
 
-    protected CreatureState _state = CreatureState.Idle;
     [SerializeField]
     public virtual CreatureState State
     {
-        get { return _state; }
+        get { return PosInfo.State; }
         set
         {
-            if (_state == value)
+            if (PosInfo.State == value)
                 return;
 
-            _state = value;
+            PosInfo.State = value;
             // 애니메이션 처리
             UpdateAnimation();
-
+            _updated = true;
         }
     }
 
     protected MoveDir _lastDir = MoveDir.Down; // 마지막으로 바라보고있던 방향
-    protected MoveDir _dir = MoveDir.Down;
     public MoveDir Dir
     {
-        get { return _dir; }
+        get { return PosInfo.MoveDir; }
         set
         {
-            if (_dir == value)
+            if (PosInfo.MoveDir == value)
                 return;
 
-            _dir = value;
+            PosInfo.MoveDir = value;
             if (value != MoveDir.None)
                 _lastDir = value;
 
             UpdateAnimation();
+            _updated = true;
         }
     }
 
@@ -74,7 +103,7 @@ public class BaseController : MonoBehaviour
 
     protected virtual void UpdateAnimation()
     {
-        if (_state == CreatureState.Idle)
+        if (State == CreatureState.Idle)
         {
             switch (_lastDir)
             {
@@ -96,9 +125,9 @@ public class BaseController : MonoBehaviour
                     break;
             }
         }
-        else if (_state == CreatureState.Moving)
+        else if (State == CreatureState.Moving)
         {
-            switch (_dir)
+            switch (Dir)
             {
                 case MoveDir.Up:
                     _animator.Play("WALK_BACK");
@@ -118,7 +147,7 @@ public class BaseController : MonoBehaviour
                     break;
             }
         }
-        else if (_state == CreatureState.Skill)
+        else if (State == CreatureState.Skill)
         {
             // TODO
             switch (_lastDir)
@@ -149,7 +178,6 @@ public class BaseController : MonoBehaviour
 
     void Start()
     {
-        _sprite = GetComponent<SpriteRenderer>();
         Init();
     }
 
@@ -160,6 +188,7 @@ public class BaseController : MonoBehaviour
 
     protected virtual void Init()
     {
+        _sprite = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f, 0);
         transform.position = pos;
@@ -208,35 +237,7 @@ public class BaseController : MonoBehaviour
     }
     protected virtual void MoveToNextPos()
     {
-        if(_dir == MoveDir.None)
-        {
-            State = CreatureState.Idle;
-            return;
-        }
-        Vector3Int destPos = CellPos; // 목적지가 될 포지션
-        switch (Dir)
-        {
-            case MoveDir.Up:
-                destPos += Vector3Int.up;
-                break;
-            case MoveDir.Right:
-                destPos += Vector3Int.right;
-                break;
-            case MoveDir.Down:
-                destPos += Vector3Int.down;
-                break;
-            case MoveDir.Left:
-                destPos += Vector3Int.left;
-                break;
-        }
-
-        if (Managers.Map.CanGo(destPos))
-        {
-            if (Managers.Object.Find(destPos) == null)
-            {
-                CellPos = destPos;
-            }
-        }
+        
     }
     protected virtual void UpdateSkill()
     {

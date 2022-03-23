@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,7 +9,7 @@ namespace Server.Game
     {
         public Lobby()
         {
-            SceneType = Define.Scene.Lobby;
+            //sceneType = SceneType.Lobby;
         }
     }
 }
