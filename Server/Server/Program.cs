@@ -21,8 +21,8 @@ namespace Server
 
 		static void Main(string[] args)
 		{
-			SceneManager<Lobby>.Instance.Add();
-			SceneManager<Huntingground>.Instance.Add();
+			SceneManager<Lobby>.Instance.Add("Lobby");
+			SceneManager<Huntingground>.Instance.Add("Huntingground");
 
 			// DNS (Domain Name System)
 			string host = Dns.GetHostName();

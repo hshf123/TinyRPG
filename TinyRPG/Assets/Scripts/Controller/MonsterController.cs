@@ -44,7 +44,7 @@ public class MonsterController : CreatureController
         base.Init();
         _speed = 5.0f;
         State = CreatureState.Idle;
-        Dir = MoveDir.None;
+        Dir = MoveDir.Down;
     }
 
     protected override void UpdateIdle()
@@ -114,10 +114,8 @@ public class MonsterController : CreatureController
             return MoveDir.Left;
         else if (dir.y > 0)
             return MoveDir.Up;
-        else if (dir.y < 0)
-            return MoveDir.Down;
         else
-            return MoveDir.None;
+            return MoveDir.Down;
     }
 
 

@@ -12,9 +12,11 @@ namespace Server.Game
         Dictionary<int, T> _scenes = new Dictionary<int, T>();
         int _sceneId = 1;
 
-        public T Add()
+        public T Add(string mapName)
         {
             T scene = new T();
+            scene.Init(mapName);
+
             lock(_lock)
             {
                 scene.SceneId = _sceneId;

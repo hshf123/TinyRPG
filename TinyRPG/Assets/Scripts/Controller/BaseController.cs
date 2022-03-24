@@ -60,7 +60,6 @@ public class BaseController : MonoBehaviour
         }
     }
 
-    protected MoveDir _lastDir = MoveDir.Down; // 마지막으로 바라보고있던 방향
     public MoveDir Dir
     {
         get { return PosInfo.MoveDir; }
@@ -70,8 +69,6 @@ public class BaseController : MonoBehaviour
                 return;
 
             PosInfo.MoveDir = value;
-            if (value != MoveDir.None)
-                _lastDir = value;
 
             UpdateAnimation();
             _updated = true;
@@ -82,7 +79,7 @@ public class BaseController : MonoBehaviour
     {
         Vector3Int cellPos = CellPos;
 
-        switch (_lastDir)
+        switch (Dir)
         {
             case MoveDir.Up:
                 cellPos += Vector3Int.up;
@@ -105,7 +102,7 @@ public class BaseController : MonoBehaviour
     {
         if (State == CreatureState.Idle)
         {
-            switch (_lastDir)
+            switch (Dir)
             {
                 case MoveDir.Up:
                     _animator.Play("IDLE_BACK");
@@ -150,7 +147,7 @@ public class BaseController : MonoBehaviour
         else if (State == CreatureState.Skill)
         {
             // TODO
-            switch (_lastDir)
+            switch (Dir)
             {
                 case MoveDir.Up:
                     _animator.Play("ATTACK_BACK");

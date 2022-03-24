@@ -114,7 +114,7 @@ public class SkillMonsterController : MonsterController
     {
         GameObject arrow = Managers.Resource.Instantiate("Misc/Arrow");
         ArrowController ac = arrow.GetComponent<ArrowController>();
-        ac.Dir = _lastDir;
+        ac.Dir = Dir;
         ac.CellPos = CellPos;
 
         // 대기 시간

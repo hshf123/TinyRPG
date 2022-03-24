@@ -8,6 +8,8 @@ using static Define;
 
 public class MyPlayerController : PlayerController
 {
+    bool _keyPressed = false;
+
     protected override void Init()
     {
         base.Init();
@@ -36,13 +38,11 @@ public class MyPlayerController : PlayerController
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 
-    
-
     // IDLE상태에서 Moving으로 갈지, Skill로 갈지
     protected override void UpdateIdle()
     {
         // 이동 상태로 갈지 확인
-        if (Dir != MoveDir.None)
+        if (_keyPressed)
         {
             State = CreatureState.Moving;
             return;
@@ -75,7 +75,7 @@ public class MyPlayerController : PlayerController
 
     protected override void MoveToNextPos()
     {
-        if (Dir == MoveDir.None)
+        if (_keyPressed == false)
         {
             State = CreatureState.Idle;
             CheckUpdatedFlag();
@@ -112,6 +112,8 @@ public class MyPlayerController : PlayerController
 
     void GetDirInput()
     {
+        _keyPressed = true;
+
         if (Input.GetKey(KeyCode.UpArrow))
         {
             Dir = MoveDir.Up;
@@ -130,7 +132,7 @@ public class MyPlayerController : PlayerController
         }
         else
         {
-            Dir = MoveDir.None;
+            _keyPressed = false;
         }
     }
     void Portal() // 해당 좌표의 포탈이 어디로 이어지는지 찾고 해당 씬을 로드

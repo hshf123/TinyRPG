@@ -10,7 +10,7 @@ public class CreatureController : BaseController
     {
         if(State == CreatureState.Idle)
         {
-            switch(_lastDir)
+            switch(Dir)
             {
                 case MoveDir.Up:
                     _animator.Play("IDLE_BACK");
@@ -55,7 +55,7 @@ public class CreatureController : BaseController
         else if (State == CreatureState.Skill)
         {
             // TODO
-            switch (_lastDir)
+            switch (Dir)
             {
                 case MoveDir.Up:
                     _animator.Play("ATTACK_BACK");
@@ -99,7 +99,7 @@ public class CreatureController : BaseController
         transform.position = pos;
 
         State = CreatureState.Idle;
-        Dir = MoveDir.None;
+        Dir = MoveDir.Down;
         UpdateAnimation();
     }
 

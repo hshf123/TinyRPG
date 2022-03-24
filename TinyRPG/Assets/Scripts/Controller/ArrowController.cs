@@ -10,7 +10,7 @@ public class ArrowController : BaseController
 
     protected override void Init()
     {
-        switch(_lastDir)
+        switch(Dir)
         {
             case MoveDir.Up:
                 transform.rotation = Quaternion.Euler(0, 0, 0);

@@ -15,6 +15,12 @@ public class MapEditor
     [MenuItem("Tools/GenerateMap")]
     private static void GenerateMap()
     {
+        GenerateByPath("Assets/Resources/Map");
+        GenerateByPath("../Common/MapData");
+    }
+
+    private static void GenerateByPath(string path)
+    {
         GameObject[] gameObjects = Resources.LoadAll<GameObject>("Prefabs/Map");
         foreach (GameObject go in gameObjects)
         {
@@ -28,7 +34,7 @@ public class MapEditor
             string collisionTxt = $"{sceneName}_Collision";
             string portalTxt = $"{sceneName}_Portal";
 
-            using (var writer = File.CreateText($"Assets/Resources/Map/{collisionTxt}.txt"))
+            using (var writer = File.CreateText($"{path}/{collisionTxt}.txt"))
             {
                 writer.WriteLine(env.cellBounds.xMin);
                 writer.WriteLine(env.cellBounds.xMax);
@@ -49,7 +55,7 @@ public class MapEditor
                 }
             }
 
-            using (var writer = File.CreateText($"Assets/Resources/Map/{portalTxt}.txt"))
+            using (var writer = File.CreateText($"{path}/{portalTxt}.txt"))
             {
                 writer.WriteLine(env.cellBounds.xMin);
                 writer.WriteLine(env.cellBounds.xMax);
@@ -61,7 +67,7 @@ public class MapEditor
                     for (int x = env.cellBounds.xMin; x <= env.cellBounds.xMax; x++)
                     {
                         Tilemap[] portals = Util.FindChilds<Tilemap>(portal.gameObject);
-                        foreach(Tilemap p in portals)
+                        foreach (Tilemap p in portals)
                         {
                             TileBase tb = p.GetTile(new Vector3Int(x, y, 0));
                             if (tb != null)
@@ -73,9 +79,8 @@ public class MapEditor
                     writer.WriteLine();
                 }
             }
-            
-        }
 
+        }
     }
 
 #endif
