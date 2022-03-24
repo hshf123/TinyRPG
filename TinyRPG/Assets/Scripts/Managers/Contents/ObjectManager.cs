@@ -9,30 +9,56 @@ public class ObjectManager
     public MyPlayerController MyPlayer { get; set; } // 나를 찾기위한 용도
     Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>(); // 서버 연동 대비
 
-    public void Add(PlayerInfo info, bool myPlayer = false)
+    public static GameObjectType GetObjectTypeById(int id)
     {
-        if (myPlayer)
-        {
-            GameObject player = Managers.Resource.Instantiate("Creature/MyPlayer");
-            player.name = info.Name;
-            _objects.Add(info.PlayerId, player);
+        // id를 24비트 끌어내리고 0x7F는 127을 의미 &을 하면 7자리 빼고 전부 다 0으로 밀 수 있음
+        return (GameObjectType)((id >> 24) & 0x7F);
+    }
 
-            MyPlayer = player.GetComponent<MyPlayerController>();
-            MyPlayer.Id = info.PlayerId;
-            MyPlayer.PosInfo = info.PosInfo;
-            MyPlayer.SyncPos();
-        }
-        else
+    public void Add(ObjectInfo info, bool myPlayer = false)
+    {
+        GameObjectType type = GetObjectTypeById(info.ObjectId);
+        if(type == GameObjectType.Player)
         {
-            GameObject player = Managers.Resource.Instantiate("Creature/Player");
-            player.name = info.Name;
-            _objects.Add(info.PlayerId, player);
+            if (myPlayer)
+            {
+                GameObject player = Managers.Resource.Instantiate("Creature/MyPlayer");
+                player.name = info.Name;
+                _objects.Add(info.ObjectId, player);
 
-            PlayerController pc = player.GetComponent<PlayerController>();
-            pc.Id = info.PlayerId;
-            pc.PosInfo = info.PosInfo;
-            pc.SyncPos();
+                MyPlayer = player.GetComponent<MyPlayerController>();
+                MyPlayer.Id = info.ObjectId;
+                MyPlayer.PosInfo = info.PosInfo;
+                MyPlayer.SyncPos();
+            }
+            else
+            {
+                GameObject player = Managers.Resource.Instantiate("Creature/Player");
+                player.name = info.Name;
+                _objects.Add(info.ObjectId, player);
+
+                PlayerController pc = player.GetComponent<PlayerController>();
+                pc.Id = info.ObjectId;
+                pc.PosInfo = info.PosInfo;
+                pc.SyncPos();
+            }
         }
+        else if(type == GameObjectType.Monster)
+        {
+            // TODO
+        }
+        else if(type == GameObjectType.Projectile)
+        {
+            GameObject go = Managers.Resource.Instantiate("Projectile/Arrow");
+            go.name = "Arrow";
+            _objects.Add(info.ObjectId, go);
+
+            ArrowController ac = go.GetComponent<ArrowController>();
+            ac.Dir = info.PosInfo.MoveDir;
+            ac.CellPos = new Vector3Int(info.PosInfo.PosX, info.PosInfo.PosY, 0);
+            ac.SyncPos();
+        }
+
     }
 
     public void Remove(int id)

@@ -244,4 +244,10 @@ public class BaseController : MonoBehaviour
     {
 
     }
+    // 패킷을 처음 받고 생성되었을 때 포지면 맞춰주기.
+    public void SyncPos()
+    {
+        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f);
+        transform.position = pos;
+    }
 }

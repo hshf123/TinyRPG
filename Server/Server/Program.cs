@@ -38,7 +38,8 @@ namespace Server
 
 			while (true)
 			{
-				JobTimer.Instance.Flush();
+				// JobTimer.Instance.Flush();
+				SceneManager<Lobby>.Instance.Find(1).Update();
 			}
 		}
 	}

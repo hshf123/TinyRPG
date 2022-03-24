@@ -138,15 +138,8 @@ public class CreatureController : BaseController
         base.UpdateDead();
     }
 
-    // 패킷을 처음 받고 생성되었을 때 포지면 맞춰주기.
-    public void SyncPos()
-    {
-        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f);
-        transform.position = pos;
-    }
-
     // 피격 판정
-    public virtual void OnDamage() 
+    public virtual void OnDamage()
     {
         GameObject effect = Managers.Resource.Instantiate("Effect/DeathEffect");
         effect.transform.position = gameObject.transform.position;

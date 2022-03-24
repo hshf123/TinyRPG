@@ -61,8 +61,13 @@ public class MyPlayerController : PlayerController
         }
         else if (_coSkillCooltime == null && Input.GetKey(KeyCode.S))
         {
-            _coSkill = StartCoroutine("CoArrowSkill");
-            State = CreatureState.Skill;
+            Debug.Log("ArrowSkill");
+
+            C_Skill skillPacket = new C_Skill() { Info = new SkillInfo() };
+            skillPacket.Info.SkillId = 2;
+            Managers.Network.Send(skillPacket);
+
+            _coSkillCooltime = StartCoroutine("CoSkillCooltime", 0.3f);
         }
     }
 
