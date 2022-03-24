@@ -1,4 +1,5 @@
 using Google.Protobuf.Protocol;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,9 @@ public class MyPlayerController : PlayerController
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 
+    
+
+    // IDLE상태에서 Moving으로 갈지, Skill로 갈지
     protected override void UpdateIdle()
     {
         // 이동 상태로 갈지 확인
@@ -45,17 +49,30 @@ public class MyPlayerController : PlayerController
         }
 
         // 스킬 상태로 갈지 확인
-        if (Input.GetKey(KeyCode.A))
+        if (_coSkillCooltime == null && Input.GetKey(KeyCode.A))
         {
-            _coSkill = StartCoroutine("CoAutoAttack");
-            State = CreatureState.Skill;
+            Debug.Log("AutoAttack");
+
+            C_Skill skillPacket = new C_Skill() { Info = new SkillInfo() };
+            skillPacket.Info.SkillId = 1;
+            Managers.Network.Send(skillPacket);
+
+            _coSkillCooltime = StartCoroutine("CoSkillCooltime", 0.3f);
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (_coSkillCooltime == null && Input.GetKey(KeyCode.S))
         {
             _coSkill = StartCoroutine("CoArrowSkill");
             State = CreatureState.Skill;
         }
     }
+
+    Coroutine _coSkillCooltime;
+    IEnumerator CoSkillCooltime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _coSkillCooltime = null;
+    }
+
     protected override void MoveToNextPos()
     {
         if (Dir == MoveDir.None)
@@ -126,7 +143,7 @@ public class MyPlayerController : PlayerController
             Managers.Scene.LoadScene(sceneType);
         }
     }
-    void CheckUpdatedFlag() // flag를 체크해서 상태변화(State, Position, Dir)가 일어나면 패킷을 전송
+    protected override void CheckUpdatedFlag() // flag를 체크해서 상태변화(State, Position, Dir)가 일어나면 패킷을 전송
     {
         if(_updated)
         {

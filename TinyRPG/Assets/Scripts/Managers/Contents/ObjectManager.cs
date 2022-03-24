@@ -20,6 +20,7 @@ public class ObjectManager
             MyPlayer = player.GetComponent<MyPlayerController>();
             MyPlayer.Id = info.PlayerId;
             MyPlayer.PosInfo = info.PosInfo;
+            MyPlayer.SyncPos();
         }
         else
         {
@@ -30,6 +31,7 @@ public class ObjectManager
             PlayerController pc = player.GetComponent<PlayerController>();
             pc.Id = info.PlayerId;
             pc.PosInfo = info.PosInfo;
+            pc.SyncPos();
         }
     }
 

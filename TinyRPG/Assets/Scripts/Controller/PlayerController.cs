@@ -7,7 +7,7 @@ using static Define;
 public class PlayerController : CreatureController
 {
     protected Coroutine _coSkill;
-    bool _aors;
+    bool _aors; // Auto or Skill(Arrow)
 
     protected override void Init()
     {
@@ -103,23 +103,29 @@ public class PlayerController : CreatureController
             return;
         }
     }
-    
+
+    protected virtual void CheckUpdatedFlag()
+    {
+        
+    }
+
+    public void UseSkill(int skillId)
+    {
+        if(skillId == 1)
+        {
+            _coSkill = StartCoroutine("CoAutoAttack");
+        }
+    }
+
     IEnumerator CoAutoAttack()
     {
-        // 피격 판정
-        GameObject go = Managers.Object.Find(GetFrontCellPos());
-        if (go != null)
-        {
-            CreatureController cc = go.GetComponent<CreatureController>();
-            if (cc != null)
-                cc.OnDamage();
-        }
-
         // 대기 시간
         _aors = true;
+        State = CreatureState.Skill;
         yield return new WaitForSeconds(0.3f);
         State = CreatureState.Idle;
         _coSkill = null;
+        CheckUpdatedFlag();
     }
 
     IEnumerator CoArrowSkill()

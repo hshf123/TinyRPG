@@ -55,4 +55,20 @@ class PacketHandler
 
         bc.PosInfo = movePacket.PosInfo;
     }
+
+    public static void S_SkillHandler(PacketSession session, IMessage packet)
+    {
+        S_Skill skillPacket = packet as S_Skill;
+        ServerSession serverSession = session as ServerSession;
+
+        GameObject go = Managers.Object.Find(skillPacket.PlayerId);
+        if (go == null)
+            return;
+
+        PlayerController pc = go.GetComponent<PlayerController>();
+        if (pc != null)
+        {
+            pc.UseSkill(skillPacket.Info.SkillId);
+        }
+    }
 }
