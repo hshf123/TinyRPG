@@ -34,6 +34,7 @@ public class MapEditor
             string collisionTxt = $"{sceneName}_Collision";
             string portalTxt = $"{sceneName}_Portal";
 
+            // Collision 颇老 积己
             using (var writer = File.CreateText($"{path}/{collisionTxt}.txt"))
             {
                 writer.WriteLine(env.cellBounds.xMin);
@@ -55,9 +56,10 @@ public class MapEditor
                 }
             }
 
+            // Portal 颇老 积己
             using (var writer = File.CreateText($"{path}/{portalTxt}.txt"))
             {
-                writer.WriteLine(env.cellBounds.xMin);
+                /*writer.WriteLine(env.cellBounds.xMin);
                 writer.WriteLine(env.cellBounds.xMax);
                 writer.WriteLine(env.cellBounds.yMin);
                 writer.WriteLine(env.cellBounds.yMax);
@@ -77,6 +79,25 @@ public class MapEditor
                         }
                     }
                     writer.WriteLine();
+                }*/
+
+                Tilemap[] portals = Util.FindChilds<Tilemap>(portal.gameObject);
+                writer.WriteLine(portals.Length);
+                foreach (Tilemap p in portals)
+                {
+                    writer.WriteLine(p.name);
+                    for (int y = env.cellBounds.yMax; y >= env.cellBounds.yMin; y--)
+                    {
+                        for (int x = env.cellBounds.xMin; x <= env.cellBounds.xMax; x++)
+                        {
+                            TileBase tb = p.GetTile(new Vector3Int(x, y, 0));
+                            if (tb != null)
+                            {
+                                writer.WriteLine(x);
+                                writer.WriteLine(y);
+                            }
+                        }
+                    }
                 }
             }
 
