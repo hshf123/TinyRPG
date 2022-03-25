@@ -107,6 +107,10 @@ public class PlayerController : CreatureController
         {
             _coSkill = StartCoroutine("CoAutoAttack");
         }
+        else if(skillId == 2)
+        {
+            _coSkill = StartCoroutine("CoArrowSkill");
+        }
     }
 
     IEnumerator CoAutoAttack()
@@ -122,15 +126,12 @@ public class PlayerController : CreatureController
 
     IEnumerator CoArrowSkill()
     {
-        GameObject arrow = Managers.Resource.Instantiate("Misc/Arrow");
-        ArrowController ac = arrow.GetComponent<ArrowController>();
-        ac.Dir = Dir;
-        ac.CellPos = CellPos;
-
         // 대기 시간
         _aors = false;
+        State = CreatureState.Skill;
         yield return new WaitForSeconds(0.3f);
         State = CreatureState.Idle;
         _coSkill = null;
+        CheckUpdatedFlag();
     }
 }

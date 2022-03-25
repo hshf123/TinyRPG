@@ -14,15 +14,29 @@ namespace Server
 	{
 		static Listener _listener = new Listener();
 
-		static void FlushRoom()
-		{
-			JobTimer.Instance.Push(FlushRoom, 250);
-		}
+        static void FlushRoom()
+        {
+            JobTimer.Instance.Push(FlushRoom, 250);
+        }
 
-		static void Main(string[] args)
-		{
-			SceneManager<Lobby>.Instance.Add("Lobby");
-			SceneManager<Huntingground>.Instance.Add("Huntingground");
+        static void SceneAdd()
+        {
+            SceneManager<Lobby>.Instance.Add("Lobby");
+            SceneManager<Huntingground>.Instance.Add("Huntingground");
+        }
+
+        static void SceneUpdate(int count)
+        {
+            for (int i = 1; i <= count; i++)
+            {
+                SceneManager<Lobby>.Instance.Find(i).Update();
+                SceneManager<Huntingground>.Instance.Find(i).Update();
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            SceneAdd();
 
 			// DNS (Domain Name System)
 			string host = Dns.GetHostName();
@@ -39,7 +53,7 @@ namespace Server
 			while (true)
 			{
 				// JobTimer.Instance.Flush();
-				SceneManager<Lobby>.Instance.Find(1).Update();
+				SceneUpdate(1);
 			}
 		}
 	}
