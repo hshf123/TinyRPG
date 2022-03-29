@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Server.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,7 +26,7 @@ namespace Server.Game
 
         public void Update()
         {
-            lock(_lock)
+            lock (_lock)
             {
                 foreach (Projectile projectile in _projectiles.Values)
                 {
@@ -129,7 +130,7 @@ namespace Server.Game
                         return;
                     projectile.Scene = null;
                 }
-                
+
                 // 타인들한테 정보 전송
                 {
                     S_Despawn despawnPacket = new S_Despawn();
@@ -192,9 +193,13 @@ namespace Server.Game
                 skillPacket.Info.SkillId = packet.Info.SkillId;
                 Broadcast(skillPacket);
 
+                Data.Skill skillData = null;
+                if (DataManager.SkillDict.TryGetValue(packet.Info.SkillId, out skillData) == false)
+                    return;
+
                 // TODO : 스킬 사용 가능 여부 체크
                 // 스킬 아이디에 따라서 분기 해주기
-                if (packet.Info.SkillId == 1) // 평타
+                if (skillData.skillType == SkillType.SkillAuto) // 평타
                 {
                     // TODO : 데미지 판정
                     Vector2Int enemyPos = player.GetFrontCellPos(info.PosInfo.MoveDir);
@@ -204,7 +209,7 @@ namespace Server.Game
                         Console.WriteLine("Hit Object");
                     }
                 }
-                else if (packet.Info.SkillId == 2) // 화살 스킬
+                else if (skillData.skillType == SkillType.SkillProjectile) // 화살 스킬
                 {
                     // TODO : Arrow + 데미지 판정
                     Arrow arrow = ObjectManager.Instance.Add<Arrow>();
@@ -212,10 +217,12 @@ namespace Server.Game
                         return;
 
                     arrow.Owner = player;
+                    arrow.Data = skillData;
                     arrow.PosInfo.State = CreatureState.Moving;
                     arrow.PosInfo.MoveDir = player.PosInfo.MoveDir;
                     arrow.PosInfo.PosX = player.PosInfo.PosX;
                     arrow.PosInfo.PosY = player.PosInfo.PosY;
+                    arrow.Speed = skillData.projectile.speed;
                     EnterGame(arrow);
 
                 }

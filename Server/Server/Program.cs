@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Server.Data;
 using Server.Game;
 using ServerCore;
 
@@ -36,6 +37,8 @@ namespace Server
 
         static void Main(string[] args)
         {
+            ConfigManager.LoadConfig();
+            DataManager.Init();
             SceneAdd();
 
 			// DNS (Domain Name System)

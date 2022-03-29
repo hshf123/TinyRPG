@@ -10,21 +10,23 @@ namespace Server.Game
         public GameObject Owner { get; set; }
 
         long _nextMoveTick = 0;
-        int _crossroad = 0; // 화살 사거리
+        int _crossroad = 0; // 화살 사거리 체크
 
         public override void Update()
         {
-            if (Owner == null || Scene == null)
+            if (Data == null || Owner == null || Scene == null || Data.projectile == null)
                 return;
 
             // 프레임 계산
             if (_nextMoveTick >= Environment.TickCount64)
                 return;
-            _nextMoveTick = Environment.TickCount64 + 50;
+
+            long tick = (long)(1000 / Data.projectile.speed);
+            _nextMoveTick = Environment.TickCount64 + tick;
 
             // 화살이 앞으로 나가는 연산
             Vector2Int destPos = GetFrontCellPos();
-            if (Scene.Map.CanGo(destPos) && _crossroad <= 8)
+            if (Scene.Map.CanGo(destPos) && _crossroad <= Data.projectile.range)
             {
                 CellPos = destPos;
                 _crossroad++;

@@ -7,3 +7,4 @@ C:\hshf123\Unity_Projects\TinyRPG\Server\ServerCore\obj\Debug\netcoreapp3.1\Serv
 C:\hshf123\Unity_Projects\TinyRPG\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCore.csproj.CoreCompileInputs.cache
 C:\hshf123\Unity_Projects\TinyRPG\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCore.dll
 C:\hshf123\Unity_Projects\TinyRPG\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCore.pdb
+C:\hshf123\Unity_Projects\TinyRPG\Server\ServerCore\obj\Debug\netcoreapp3.1\ServerCore.csproj.AssemblyReference.cache

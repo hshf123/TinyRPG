@@ -40,7 +40,6 @@ public class MapManager
     public int SizeY { get { return MaxY - MinY + 1; } }
 
     bool[,] _collision;
-    bool[,] _portal;
 
     // 갈 수 있는 영역인지 체크
     public bool CanGo(Vector3Int cellPos)
@@ -61,9 +60,8 @@ public class MapManager
     public bool IsPortal(Vector3Int cellPos)
     {
         // 포탈인지 아닌지
-        int x = cellPos.x - MinX;
-        int y = MaxY - cellPos.y;
-        return _portal[y, x]; // portal 배열이 true면 포탈 false면 길
+        return PortalPos.ContainsKey(cellPos);
+
     }
 
     public void LoadMap(string name)
@@ -77,10 +75,6 @@ public class MapManager
         GameObject collision = Util.FindChild(go, "Collision", true);
         if (collision != null)
             collision.SetActive(false);
-        GameObject portal = Util.FindChild(go, "Portal", true);
-        Transform[] portalNames = Util.FindChilds<Transform>(portal);
-        if (portal != null)
-            portal.SetActive(false);
 
         CurrentGrid = go.GetComponent<Grid>();
 
@@ -102,33 +96,18 @@ public class MapManager
                 _collision[y, x] = (line[x] == '1' ? true : false);
             }
         }
-        // Portal 관련 파일
+        //Portal 관련 파일
         TextAsset portalText = Managers.Resource.Load<TextAsset>($"Map/{name}_Portal");
+
         reader = new StringReader(portalText.text);
-        MinX = int.Parse(reader.ReadLine());
-        MaxX = int.Parse(reader.ReadLine());
-        MinY = int.Parse(reader.ReadLine());
-        MaxY = int.Parse(reader.ReadLine());
-        xCount = MaxX - MinX + 1;
-        yCount = MaxY - MinY + 1;
-        _portal = new bool[yCount, xCount];
-        int count = 0;
-        for (int y = 0; y < yCount; y++)
+
+        int count = int.Parse(reader.ReadLine());
+        for (int j = 0; j < count; j++)
         {
-            string line = reader.ReadLine();
-            for (int x = 0; x < xCount; x++)
-            {
-                //_portal[y, x] = (line[x] == '1' ? true : false);
-                if (line[x] == '1')
-                {
-                    _portal[y, x] = true;
-                    PortalPos.Add(new Vector3Int(x + MinX, MaxY - y, 0), portalNames[count++].name);
-                }
-                else
-                {
-                    _portal[y, x] = false;
-                }
-            }
+            string linkName = reader.ReadLine(); // 어디로 연결 되어 있는지
+            int x = int.Parse(reader.ReadLine());
+            int y = int.Parse(reader.ReadLine());
+            PortalPos.Add(new Vector3Int(x, y, 0), linkName);
         }
     }
 

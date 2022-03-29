@@ -102,6 +102,10 @@
               "target": "Package",
               "version": "[3.19.4, )"
             },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "System.Memory": {
               "target": "Package",
               "version": "[4.5.4, )"

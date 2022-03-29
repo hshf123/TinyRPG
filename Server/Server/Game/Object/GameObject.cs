@@ -12,10 +12,14 @@ namespace Server.Game
         public Scenes Scene { get; set; } // 오브젝트가 어떤 씬에 있는지
         public ObjectInfo Info { get; set; } = new ObjectInfo();
         public PositionInfo PosInfo { get; private set; } = new PositionInfo();
+        public StatInfo StatInfo { get; private set; } = new StatInfo();
+
+        public float Speed { get { return StatInfo.Speed; } set { StatInfo.Speed = value; } }
 
         public GameObject()
         {
             Info.PosInfo = PosInfo;
+            Info.StatInfo = StatInfo;
         }
 
         public Vector2Int CellPos

@@ -16,3 +16,4 @@ C:\hshf123\Unity_Projects\TinyRPG\Server\Server\obj\Debug\netcoreapp3.1\Server.d
 C:\hshf123\Unity_Projects\TinyRPG\Server\Server\obj\Debug\netcoreapp3.1\Server.pdb
 C:\hshf123\Unity_Projects\TinyRPG\Server\Server\obj\Debug\netcoreapp3.1\Server.genruntimeconfig.cache
 C:\hshf123\Unity_Projects\TinyRPG\Server\Server\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
+C:\hshf123\Unity_Projects\TinyRPG\Server\Server\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
