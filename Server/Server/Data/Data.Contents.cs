@@ -13,6 +13,7 @@ namespace Server.Data
         public int level;
         public int hp;
         public int attack;
+        public int speed;
     }
 
     [Serializable]

@@ -3,17 +3,20 @@
     {
       "level": "1",
       "hp": "100",
-      "attack": "10"
+      "attack": "10",
+      "speed": "10"
     },
     {
       "level": "2",
       "hp": "150",
-      "attack": "15"
+      "attack": "15",
+      "speed": "10"
     },
     {
       "level": "3",
       "hp": "200",
-      "attack": "20"
+      "attack": "20",
+      "speed": "10"
     }
   ]
 }

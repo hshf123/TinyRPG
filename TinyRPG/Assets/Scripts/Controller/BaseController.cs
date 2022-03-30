@@ -17,12 +17,13 @@ public class BaseController : MonoBehaviour
             if (_stat.Equals(value))
                 return;
 
+            _stat.Level = value.Level;
             _stat.Hp = value.Hp;
-            _stat.MaxHp = value.MaxHp;
+            _stat.Attack = value.Attack;
             _stat.Speed = value.Speed;
         }
     }
-    public float Speed { get { return _stat.Speed; } set { _stat.Speed = value; } }
+    public float Speed { get { return Stat.Speed; } set { Stat.Speed = value; } }
 
     protected bool _updated = false;
 

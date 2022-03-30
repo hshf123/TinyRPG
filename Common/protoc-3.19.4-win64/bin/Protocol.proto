@@ -97,9 +97,10 @@ message PositionInfo {
 }
 
 message StatInfo {
-  int32 hp = 1;
-  int32 maxHp = 2;
-  float speed = 3;
+  int32 level = 1;
+  int32 hp = 2;
+  int32 attack = 3;
+  float speed = 4;
 }
 
 message SkillInfo {

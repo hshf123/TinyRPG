@@ -6,8 +6,6 @@ using static Define;
 
 public class ArrowController : BaseController
 {
-    int movingCount = 0;
-
     protected override void Init()
     {
         switch(Dir)

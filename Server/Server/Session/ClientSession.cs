@@ -9,6 +9,7 @@ using System.Net;
 using Google.Protobuf.Protocol;
 using Google.Protobuf;
 using Server.Game;
+using Server.Data;
 
 namespace Server
 {
@@ -35,13 +36,21 @@ namespace Server
 		{
 			Console.WriteLine($"OnConnected : {endPoint}");
 
-			MyPlayer = ObjectManager.Instance.Add<Player>();
+            Data.Stat stat = null;
+            if (DataManager.StatDict.TryGetValue(1, out stat) == false)
+                return;
+
+            MyPlayer = ObjectManager.Instance.Add<Player>();
             {
 				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
 				MyPlayer.Info.PosInfo.State = CreatureState.Idle;
 				MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
 				MyPlayer.Info.PosInfo.PosX = 0;
 				MyPlayer.Info.PosInfo.PosY = 0;
+				MyPlayer.Info.StatInfo.Level = stat.level;
+				MyPlayer.Info.StatInfo.Hp = stat.hp;
+				MyPlayer.Info.StatInfo.Attack = stat.attack;
+				MyPlayer.Info.StatInfo.Speed = stat.speed;
 				MyPlayer.Session = this;
             }
 
