@@ -31,7 +31,6 @@ public class SkillMonsterController : MonsterController
     protected override void Init()
     {
         base.Init();
-        _speed = 7.0f;
         _searchRange = 10.0f;
     }
 

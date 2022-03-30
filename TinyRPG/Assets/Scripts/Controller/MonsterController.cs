@@ -42,7 +42,6 @@ public class MonsterController : CreatureController
     protected override void Init()
     {
         base.Init();
-        _speed = 5.0f;
         State = CreatureState.Idle;
         Dir = MoveDir.Down;
     }

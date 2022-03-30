@@ -43,7 +43,8 @@ namespace Server.Game
                 GameObject target = Scene.Map.Find(destPos);
                 if (target != null)
                 {
-                    // TODO : 피격 판정
+                    // 피격판정
+                    target.OnDamaged(this, Data.damage);
                 }
 
                 // 소멸

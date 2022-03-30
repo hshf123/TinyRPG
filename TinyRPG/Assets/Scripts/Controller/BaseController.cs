@@ -8,13 +8,26 @@ public class BaseController : MonoBehaviour
 {
     public int Id { get; set; }
 
-    [SerializeField]
-    protected float _speed = 10.0f;
+    StatInfo _stat = new StatInfo();
+    public StatInfo Stat
+    {
+        get { return _stat; }
+        set
+        {
+            if (_stat.Equals(value))
+                return;
+
+            _stat.Hp = value.Hp;
+            _stat.MaxHp = value.MaxHp;
+            _stat.Speed = value.Speed;
+        }
+    }
+    public float Speed { get { return _stat.Speed; } set { _stat.Speed = value; } }
 
     protected bool _updated = false;
 
     PositionInfo _positioniInfo = new PositionInfo();
-    public PositionInfo PosInfo 
+    public PositionInfo PosInfo
     {
         get { return _positioniInfo; }
         set
@@ -28,7 +41,7 @@ public class BaseController : MonoBehaviour
         }
     }
 
-    public Vector3Int CellPos 
+    public Vector3Int CellPos
     {
         get { return new Vector3Int(PosInfo.PosX, PosInfo.PosY, 0); }
         set
@@ -211,7 +224,7 @@ public class BaseController : MonoBehaviour
     // 물체 이동 관련
     protected virtual void UpdateIdle()
     {
-        
+
     }
     protected virtual void UpdateMoving() // 움직일 때 한칸 단위로 움직이게 해준다.
     {
@@ -220,7 +233,7 @@ public class BaseController : MonoBehaviour
 
         // 도착 여부 체크
         float dist = moveDir.magnitude; // 방향 벡터의 크기 = 목적지 까지의 거리
-        if (dist < _speed * Time.deltaTime) // 한 번에 이동할 수 있는 거리보다 작다고 하면 도착했다고 인정.
+        if (dist < Speed * Time.deltaTime) // 한 번에 이동할 수 있는 거리보다 작다고 하면 도착했다고 인정.
         {
             transform.position = destPos;
             // 다음칸 이동
@@ -228,13 +241,13 @@ public class BaseController : MonoBehaviour
         }
         else
         {
-            transform.position += moveDir.normalized * _speed * Time.deltaTime; // 목적지 방향으로 전진
+            transform.position += moveDir.normalized * Speed * Time.deltaTime; // 목적지 방향으로 전진
             State = CreatureState.Moving;
         }
     }
     protected virtual void MoveToNextPos()
     {
-        
+
     }
     protected virtual void UpdateSkill()
     {

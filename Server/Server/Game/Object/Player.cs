@@ -13,5 +13,10 @@ namespace Server.Game
         {
             ObjectType = GameObjectType.Player;
         }
+
+        public override void OnDamaged(GameObject attacker, int damage)
+        {
+            // TODO : 데미지 판정
+        }
     }
 }

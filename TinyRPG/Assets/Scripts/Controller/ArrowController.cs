@@ -27,7 +27,6 @@ public class ArrowController : BaseController
         }
 
         State = CreatureState.Moving;
-        _speed = 20.0f;
 
         _animator = GetComponent<Animator>();
         Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.8f, 0);

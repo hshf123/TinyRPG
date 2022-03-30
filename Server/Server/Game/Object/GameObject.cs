@@ -13,7 +13,6 @@ namespace Server.Game
         public ObjectInfo Info { get; set; } = new ObjectInfo();
         public PositionInfo PosInfo { get; private set; } = new PositionInfo();
         public StatInfo StatInfo { get; private set; } = new StatInfo();
-
         public float Speed { get { return StatInfo.Speed; } set { StatInfo.Speed = value; } }
 
         public GameObject()
@@ -58,6 +57,11 @@ namespace Server.Game
             }
 
             return cellPos;
+        }
+
+        public virtual void OnDamaged(GameObject attacker, int damage)
+        {
+
         }
     }
 }
