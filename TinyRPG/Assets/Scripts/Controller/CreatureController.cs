@@ -102,8 +102,6 @@ public class CreatureController : BaseController
     {
         base.Init();
 
-        State = CreatureState.Idle;
-        Dir = MoveDir.Down;
         UpdateAnimation();
         AddHpBar();
     }
@@ -131,14 +129,6 @@ public class CreatureController : BaseController
         _hpBar.SetHpBar(ratio);
     }
 
-    // 피격 판정
-    public virtual void OnDamage()
-    {
-
-
-        Managers.Object.Remove(Id);
-        Managers.Resource.Destroy(gameObject);
-    }
     public virtual void OnDead()
     {
         State = CreatureState.Dead;

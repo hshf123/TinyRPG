@@ -22,6 +22,19 @@ namespace Server.Game
             State = CreatureState.Idle;
         }
 
+        public override void OnDamaged(GameObject attacker, int damage)
+        {
+            StatInfo.Hp = Math.Max(StatInfo.Hp - damage, 0);
+
+            S_ChangeHp hpPacket = new S_ChangeHp();
+            hpPacket.ObjectId = Id;
+            hpPacket.Hp = StatInfo.Hp;
+            Scene.Broadcast(hpPacket);
+
+            if (StatInfo.Hp <= 0)
+                OnDead(attacker);
+        }
+
         // FSM (Finite State Machine)
         public override void Update()
         {
@@ -41,7 +54,6 @@ namespace Server.Game
                     break;
             }
         }
-
         Player _target;
         int _searchRange = 10; // 몬스터가 플레이어를 찾는 범위
         int _chaseRange = 10; // 몬스터가 플레이어를 쫓아가는 범위
