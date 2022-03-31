@@ -6,18 +6,6 @@ using static Define;
 
 public class MonsterController : CreatureController
 {
-    public override CreatureState State
-    {
-        get { return PosInfo.State; }
-        set
-        {
-            if (PosInfo.State == value)
-                return;
-
-            base.State = value;
-        }
-    }
-
     protected override void Init()
     {
         base.Init();
@@ -30,15 +18,7 @@ public class MonsterController : CreatureController
         base.UpdateIdle();
     }
 
-    public MoveDir GetDirFromVec(Vector3Int dir)
+    public override void UseSkill(int skillId)
     {
-        if (dir.x > 0)
-            return MoveDir.Right;
-        else if (dir.x < 0)
-            return MoveDir.Left;
-        else if (dir.y > 0)
-            return MoveDir.Up;
-        else
-            return MoveDir.Down;
     }
 }

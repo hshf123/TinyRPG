@@ -16,6 +16,7 @@ namespace Server.Game
         public MoveDir Dir { get { return PosInfo.MoveDir; } set { PosInfo.MoveDir = value; } }
         public StatInfo StatInfo { get; private set; } = new StatInfo();
         public float Speed { get { return StatInfo.Speed; } set { StatInfo.Speed = value; } }
+        public int Hp { get { return StatInfo.Hp; } set { StatInfo.Hp = Math.Clamp(value, 0, StatInfo.MaxHp); } }
 
         public GameObject()
         {

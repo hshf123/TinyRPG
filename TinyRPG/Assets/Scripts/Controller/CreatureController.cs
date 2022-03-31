@@ -12,6 +12,9 @@ public class CreatureController : BaseController
 
     protected override void UpdateAnimation()
     {
+        if (_animator == null || _sprite == null)
+            return;
+
         if (State == CreatureState.Idle)
         {
             switch (Dir)
@@ -144,5 +147,10 @@ public class CreatureController : BaseController
         effect.transform.position = gameObject.transform.position;
         effect.GetComponent<Animator>().Play("DEATH_EFFECT");
         GameObject.Destroy(effect, 0.5f);
+    }
+
+    public virtual void UseSkill(int skillId)
+    {
+
     }
 }

@@ -8,26 +8,21 @@ public class SkillMonsterController : MonsterController
 {
     Coroutine _coSkill;
 
-    public override CreatureState State
-    {
-        get { return PosInfo.State; }
-        set
-        {
-            if (PosInfo.State == value)
-                return;
-
-            base.State = value;
-            if (_coSkill != null)
-            {
-                StopCoroutine(_coSkill);
-                _coSkill = null;
-            }
-        }
-    }
-
     protected override void Init()
     {
         base.Init();
+    }
+
+    public override void UseSkill(int skillId)
+    {
+        if (skillId == 1)
+        {
+            State = CreatureState.Skill;
+        }
+        else if (skillId == 2)
+        {
+            State = CreatureState.Skill;
+        }
     }
 
     //protected override void MoveToNextPos()
@@ -88,33 +83,4 @@ public class SkillMonsterController : MonsterController
     //        State = CreatureState.Idle;
     //    }
     //}
-
-    IEnumerator CoAutoAttack() // 아직 사용할지는 미정
-    {
-        // 피격 판정
-        GameObject go = Managers.Object.Find(GetFrontCellPos());
-        if (go != null)
-        {
-            CreatureController cc = go.GetComponent<CreatureController>();
-            if (cc != null)
-                cc.OnDamage();
-        }
-
-        // 대기 시간
-        yield return new WaitForSeconds(0.3f);
-        State = CreatureState.Idle;
-        _coSkill = null;
-    }
-    IEnumerator CoArrowSkill()
-    {
-        GameObject arrow = Managers.Resource.Instantiate("Misc/Arrow");
-        ArrowController ac = arrow.GetComponent<ArrowController>();
-        ac.Dir = Dir;
-        ac.CellPos = CellPos;
-
-        // 대기 시간
-        yield return new WaitForSeconds(0.3f);
-        State = CreatureState.Idle;
-        _coSkill = null;
-    }
 }

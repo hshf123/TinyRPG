@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Protocol;
+using Server.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Server.Game
         // FSM (Finite State Machine)
         public override void Update()
         {
-            switch(State)
+            switch (State)
             {
                 case CreatureState.Idle:
                     UpdateIdle();
@@ -44,6 +45,7 @@ namespace Server.Game
         Player _target;
         int _searchRange = 10; // 몬스터가 플레이어를 찾는 범위
         int _chaseRange = 10; // 몬스터가 플레이어를 쫓아가는 범위
+        int _skillRange = 1; // 몬스터가 스킬을 사용하게 되는 범위
         long _nextSearchTick = 0;
         protected virtual void UpdateIdle()
         {
@@ -70,18 +72,21 @@ namespace Server.Game
             int moveTick = (int)(1000 / Speed);
             _nextMoveTick = Environment.TickCount64 + moveTick;
 
-            if(_target == null || _target.Scene != Scene    )
+            if (_target == null || _target.Scene != Scene)
             {
                 _target = null;
                 State = CreatureState.Idle;
+                BroadcastMove();
                 return;
             }
 
-            int dist = (_target.CellPos - CellPos).cellDist;
+            Vector2Int dir = _target.CellPos - CellPos;
+            int dist = dir.cellDist;
             if (dist == 0 || dist > _chaseRange)
             {
                 _target = null;
                 State = CreatureState.Idle;
+                BroadcastMove();
                 return;
             }
 
@@ -90,21 +95,82 @@ namespace Server.Game
             {
                 _target = null;
                 State = CreatureState.Idle;
+                BroadcastMove();
+                return;
+            }
+
+            // 스킬로 이동할지 체크
+            if (dist <= _skillRange && (dir.x == 0 || dir.y == 0))
+            {
+                _coolTick = 0;
+                State = CreatureState.Skill;
                 return;
             }
 
             // 이동
             Dir = GetDirFromVec(path[1] - CellPos);
             Scene.Map.ApplyMove(this, path[1]);
-
-            // 다른 플레이어한테도 알려준다
+            BroadcastMove();
+        }
+        void BroadcastMove()
+        {
             S_Move movePacket = new S_Move();
             movePacket.ObjectId = Id;
             movePacket.PosInfo = PosInfo;
             Scene.Broadcast(movePacket);
         }
+        int _coolTick = 0;
         protected virtual void UpdateSkill()
         {
+            if(_coolTick ==0 )
+            {
+                // 유효한 타겟인지
+                if (_target == null || _target.Scene != Scene || _target.Hp == 0)
+                {
+                    _target = null;
+                    State = CreatureState.Moving;
+                    BroadcastMove();
+                    return;
+                }
+                // 스킬이 아직 사용 가능한지
+                Vector2Int dir = (_target.CellPos - CellPos);
+                int dist = dir.cellDist;
+                bool canUseSkill = (dist <= _skillRange) && (dir.x == 0 || dir.y == 0);
+                if(canUseSkill==false)
+                {
+                    State = CreatureState.Moving;
+                    BroadcastMove();
+                    return;
+                }
+                // 타겟팅 방향 주시
+                MoveDir keepEyeDir = GetDirFromVec(dir);
+                if(Dir!=keepEyeDir)
+                {
+                    Dir = keepEyeDir;
+                    BroadcastMove();
+                }
+
+                Skill skillData = null;
+                DataManager.SkillDict.TryGetValue(1, out skillData);
+
+                // 데미지 판정
+                _target.OnDamaged(this, skillData.damage + StatInfo.Attack);
+
+                // 스킬 사용 Broadcast
+                S_Skill skillPacket = new S_Skill() { Info = new SkillInfo() };
+                skillPacket.ObjectId = Id;
+                skillPacket.Info.SkillId = skillData.id;
+                Scene.Broadcast(skillPacket);
+                // 스킬 쿨타임 적용
+
+                int coolTick = (int)(1000 * skillData.cooldown);
+                _coolTick = (int)(Environment.TickCount64 + coolTick);
+            }
+
+            if (_coolTick > Environment.TickCount64)
+                return;
+
+            _coolTick = 0;
         }
         protected virtual void UpdateDead()
         {
