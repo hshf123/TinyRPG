@@ -6,11 +6,14 @@ using static Define;
 
 public class CreatureController : BaseController
 {
+    HpBar _hpBar;
+    public int Hp { get { return Stat.Hp; } set { Stat.Hp = value; UpdateHp(); } }
+
     protected override void UpdateAnimation()
     {
-        if(State == CreatureState.Idle)
+        if (State == CreatureState.Idle)
         {
-            switch(Dir)
+            switch (Dir)
             {
                 case MoveDir.Up:
                     _animator.Play("IDLE_BACK");
@@ -30,7 +33,7 @@ public class CreatureController : BaseController
                     break;
             }
         }
-        else if(State == CreatureState.Moving)
+        else if (State == CreatureState.Moving)
         {
             switch (Dir)
             {
@@ -101,6 +104,7 @@ public class CreatureController : BaseController
         State = CreatureState.Idle;
         Dir = MoveDir.Down;
         UpdateAnimation();
+        AddHpBar();
     }
 
     protected override void UpdateController()
@@ -118,6 +122,29 @@ public class CreatureController : BaseController
             case CreatureState.Dead:
                 break;
         }
+    }
+
+    protected void AddHpBar()
+    {
+        GameObject go = Managers.Resource.Instantiate("UI/HpBar", transform);
+        go.transform.localPosition = new Vector3(0, 0.6f, 0);
+        go.name = "HpBar";
+        _hpBar = go.GetComponent<HpBar>();
+        UpdateHp();
+    }
+
+    void UpdateHp() // 체력 업데이트
+    {
+        if (_hpBar == null)
+            return;
+
+        float ratio = 0;
+        if(Stat.MaxHp>0)
+        {
+            ratio = ((float)Stat.Hp / Stat.MaxHp);
+        }
+
+        _hpBar.SetHpBar(ratio);
     }
 
     // 크리쳐 이동 관련

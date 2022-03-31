@@ -2,21 +2,27 @@
   "stats": [
     {
       "level": "1",
+      "maxHp": "100",
       "hp": "100",
       "attack": "10",
-      "speed": "10"
+      "speed": "10",
+      "totalExp": "200"
     },
     {
       "level": "2",
+      "maxHp": "150",
       "hp": "150",
       "attack": "15",
-      "speed": "10"
+      "speed": "10",
+      "totalExp": "250"
     },
     {
       "level": "3",
+      "maxHp": "200",
       "hp": "200",
       "attack": "20",
-      "speed": "10"
+      "speed": "10",
+      "totalExp": "300"
     }
   ]
 }

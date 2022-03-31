@@ -36,7 +36,7 @@ namespace Server
 		{
 			Console.WriteLine($"OnConnected : {endPoint}");
 
-            Data.Stat stat = null;
+            StatInfo stat = null;
             if (DataManager.StatDict.TryGetValue(1, out stat) == false)
                 return;
 
@@ -47,10 +47,8 @@ namespace Server
 				MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
 				MyPlayer.Info.PosInfo.PosX = 0;
 				MyPlayer.Info.PosInfo.PosY = 0;
-				MyPlayer.Info.StatInfo.Level = stat.level;
-				MyPlayer.Info.StatInfo.Hp = stat.hp;
-				MyPlayer.Info.StatInfo.Attack = stat.attack;
-				MyPlayer.Info.StatInfo.Speed = stat.speed;
+
+				MyPlayer.StatInfo.MergeFrom(stat);
 				MyPlayer.Session = this;
             }
 

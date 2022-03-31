@@ -61,7 +61,12 @@ namespace Server.Game
 
         public virtual void OnDamaged(GameObject attacker, int damage)
         {
+            
+        }
 
+        public virtual bool OnDead(GameObject attacker)
+        {
+            return false;
         }
     }
 }

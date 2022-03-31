@@ -201,17 +201,15 @@ namespace Server.Game
                 // 스킬 아이디에 따라서 분기 해주기
                 if (skillData.skillType == SkillType.SkillAuto) // 평타
                 {
-                    // TODO : 데미지 판정
                     Vector2Int enemyPos = player.GetFrontCellPos(info.PosInfo.MoveDir);
                     GameObject target = Map.Find(enemyPos);
                     if (target != null)
                     {
-                        Console.WriteLine("Hit Object");
+                        target.OnDamaged(player, player.Info.StatInfo.Attack);
                     }
                 }
                 else if (skillData.skillType == SkillType.SkillProjectile) // 화살 스킬
                 {
-                    // TODO : Arrow + 데미지 판정
                     Arrow arrow = ObjectManager.Instance.Add<Arrow>();
                     if (arrow == null)
                         return;

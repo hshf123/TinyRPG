@@ -44,7 +44,7 @@ namespace Server.Game
                 if (target != null)
                 {
                     // 피격판정
-                    target.OnDamaged(this, Data.damage);
+                    target.OnDamaged(this, Data.damage + Owner.StatInfo.Attack);
                 }
 
                 // 소멸

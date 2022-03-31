@@ -16,7 +16,15 @@ namespace Server.Game
 
         public override void OnDamaged(GameObject attacker, int damage)
         {
-            // TODO : 데미지 판정
+            StatInfo.Hp = Math.Max(StatInfo.Hp - damage, 0);
+
+            S_ChangeHp hpPacket = new S_ChangeHp();
+            hpPacket.ObjectId = Id;
+            hpPacket.Hp = StatInfo.Hp;
+            Scene.Broadcast(hpPacket);
+
+            if (StatInfo.Hp <= 0)
+                OnDead(attacker);
         }
     }
 }

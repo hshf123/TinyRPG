@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - ArrowController
+    - HpBar
     - HuntinggroundScene
     - LobbyScene
     - MonsterController
@@ -12,6 +13,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
     - UnityEditor.Tilemaps.GridBrushEditor
@@ -107,6 +109,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4632}
     - Class: 114
       Script: {instanceID: 5720}
+    - Class: 114
+      Script: {instanceID: 19932}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -342,7 +346,7 @@ ScriptsOnlyBuild:
     className: UI_Inven_Item
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ArrowController
@@ -432,7 +436,7 @@ ScriptsOnlyBuild:
     className: ContentSizeFitter
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BaseController
@@ -450,7 +454,7 @@ ScriptsOnlyBuild:
     className: UI_EventHandler
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MyPlayerController
@@ -474,7 +478,7 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
-      Hash: f57dc3112a898c2ef794197290727344
+      Hash: ab2bedb1bd2520e757768562c6d19cbf
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MonsterController
@@ -576,7 +580,7 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -660,7 +664,7 @@ ScriptsOnlyBuild:
     className: SpriteLibraryAsset
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CreatureController
@@ -702,7 +706,7 @@ ScriptsOnlyBuild:
     className: BufferManager
   - hash:
       serializedVersion: 2
-      Hash: 9443842255002220696461c52370ee3b
+      Hash: 1e289b1b668d8f8483ea14b2eb12ab6f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SkillMonsterController
@@ -742,6 +746,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: FabrikSolver2D
+  - hash:
+      serializedVersion: 2
+      Hash: 9b28d530eb7b341ecd3d2968ce697630
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HpBar
   platform: 19
   scenePathNames:
   - Assets/Scenes/Lobby.unity

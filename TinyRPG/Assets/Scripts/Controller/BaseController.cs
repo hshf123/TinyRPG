@@ -19,8 +19,10 @@ public class BaseController : MonoBehaviour
 
             _stat.Level = value.Level;
             _stat.Hp = value.Hp;
+            _stat.MaxHp = value.MaxHp;
             _stat.Attack = value.Attack;
             _stat.Speed = value.Speed;
+            _stat.TotalExp = value.TotalExp;
         }
     }
     public float Speed { get { return Stat.Speed; } set { Stat.Speed = value; } }
