@@ -13,7 +13,6 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
-    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
     - UnityEditor.Tilemaps.GridBrushEditor
@@ -57,7 +56,7 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 5802}
+      Script: {instanceID: 5804}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -100,17 +99,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3206}
     - Class: 114
-      Script: {instanceID: 3338}
+      Script: {instanceID: 3322}
     - Class: 114
-      Script: {instanceID: 3910}
+      Script: {instanceID: 3340}
     - Class: 114
-      Script: {instanceID: 4006}
+      Script: {instanceID: 3912}
     - Class: 114
-      Script: {instanceID: 4632}
+      Script: {instanceID: 4008}
     - Class: 114
-      Script: {instanceID: 5720}
+      Script: {instanceID: 4634}
     - Class: 114
-      Script: {instanceID: 19932}
+      Script: {instanceID: 5722}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -374,6 +373,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: TestResultRendererCallback
+  - hash:
+      serializedVersion: 2
+      Hash: 9b28d530eb7b341ecd3d2968ce697630
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HpBar
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -746,12 +751,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: FabrikSolver2D
-  - hash:
-      serializedVersion: 2
-      Hash: 9b28d530eb7b341ecd3d2968ce697630
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: HpBar
   platform: 19
   scenePathNames:
   - Assets/Scenes/Lobby.unity

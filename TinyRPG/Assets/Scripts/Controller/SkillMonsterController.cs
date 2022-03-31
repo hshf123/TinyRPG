@@ -69,7 +69,7 @@ public class SkillMonsterController : MonsterController
         // 충돌, 피격 판정
         if (Managers.Map.CanGo(nextPos))
         {
-            GameObject target = Managers.Object.Find(nextPos);
+            GameObject target = Managers.Object.FindCreature(nextPos);
             if (target != null)
             {
                 if (target == _target)
@@ -96,7 +96,7 @@ public class SkillMonsterController : MonsterController
     IEnumerator CoAutoAttack() // 아직 사용할지는 미정
     {
         // 피격 판정
-        GameObject go = Managers.Object.Find(GetFrontCellPos());
+        GameObject go = Managers.Object.FindCreature(GetFrontCellPos());
         if (go != null)
         {
             CreatureController cc = go.GetComponent<CreatureController>();

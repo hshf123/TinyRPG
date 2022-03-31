@@ -9,7 +9,7 @@ public class BaseController : MonoBehaviour
     public int Id { get; set; }
 
     StatInfo _stat = new StatInfo();
-    public StatInfo Stat
+    public virtual StatInfo Stat
     {
         get { return _stat; }
         set
@@ -59,8 +59,6 @@ public class BaseController : MonoBehaviour
     }
     protected Animator _animator;
     protected SpriteRenderer _sprite;
-
-    [SerializeField]
     public virtual CreatureState State
     {
         get { return PosInfo.State; }

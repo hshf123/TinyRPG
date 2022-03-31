@@ -60,7 +60,6 @@ public class ObjectManager
             ac.Stat = info.StatInfo;
             ac.SyncPos();
         }
-
     }
 
     public void Remove(int id)
@@ -72,16 +71,7 @@ public class ObjectManager
         _objects.Remove(id);
     }
 
-    public void RemoveMyPlayer()
-    {
-        if (MyPlayer == null)
-            return;
-
-        Remove(MyPlayer.Id);
-        MyPlayer = null;
-    }
-
-    public GameObject Find(Vector3Int cellPos)
+    public GameObject FindCreature(Vector3Int cellPos)
     {
         foreach (GameObject go in _objects.Values)
         {
@@ -121,5 +111,6 @@ public class ObjectManager
         foreach(GameObject go in _objects.Values)
             Managers.Resource.Destroy(go);
         _objects.Clear();
+        MyPlayer = null;
     }
 }

@@ -64,9 +64,23 @@ namespace Server.Game
             
         }
 
-        public virtual bool OnDead(GameObject attacker)
+        public virtual void OnDead(GameObject attacker)
         {
-            return false;
+            S_Die diePacket = new S_Die();
+            diePacket.ObjectId = Id;
+            diePacket.AttackerId = attacker.Id;
+            Scene.Broadcast(diePacket);
+
+            Scenes scene = Scene;
+            scene.LeaveGame(Id);
+
+            StatInfo.Hp = StatInfo.MaxHp;
+            PosInfo.State = CreatureState.Idle;
+            PosInfo.MoveDir = MoveDir.Down;
+            PosInfo.PosX = 0;
+            PosInfo.PosY = 0;
+
+            scene.EnterGame(this);
         }
     }
 }

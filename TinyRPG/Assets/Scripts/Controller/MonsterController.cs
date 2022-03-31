@@ -81,7 +81,7 @@ public class MonsterController : CreatureController
         // 충돌, 피격 판정
         if (Managers.Map.CanGo(nextPos))
         {
-            GameObject target = Managers.Object.Find(nextPos);
+            GameObject target = Managers.Object.FindCreature(nextPos);
             if (target != null)
             {
                 if (target == _target)
@@ -129,7 +129,7 @@ public class MonsterController : CreatureController
             int y = Random.Range(-2, 3);
             Vector3Int randPos = CellPos + new Vector3Int(x, y, 0);
 
-            if (Managers.Map.CanGo(randPos) && Managers.Object.Find(randPos) == null)
+            if (Managers.Map.CanGo(randPos) && Managers.Object.FindCreature(randPos) == null)
             {
                 _destPos = randPos;
                 State = CreatureState.Moving;

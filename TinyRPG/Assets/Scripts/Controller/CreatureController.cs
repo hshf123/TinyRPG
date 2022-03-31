@@ -7,6 +7,7 @@ using static Define;
 public class CreatureController : BaseController
 {
     HpBar _hpBar;
+    public override StatInfo Stat { get { return base.Stat; } set { base.Stat = value; UpdateHp(); } }
     public int Hp { get { return Stat.Hp; } set { Stat.Hp = value; UpdateHp(); } }
 
     protected override void UpdateAnimation()
@@ -96,32 +97,12 @@ public class CreatureController : BaseController
 
     protected override void Init()
     {
-        _sprite = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
-        Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 1.0f, 0);
-        transform.position = pos;
+        base.Init();
 
         State = CreatureState.Idle;
         Dir = MoveDir.Down;
         UpdateAnimation();
         AddHpBar();
-    }
-
-    protected override void UpdateController()
-    {
-        switch(State)
-        {
-            case CreatureState.Idle:
-                UpdateIdle();
-                break;
-            case CreatureState.Moving:
-                UpdateMoving();
-                break;
-            case CreatureState.Skill:
-                break;
-            case CreatureState.Dead:
-                break;
-        }
     }
 
     protected void AddHpBar()
@@ -139,7 +120,7 @@ public class CreatureController : BaseController
             return;
 
         float ratio = 0;
-        if(Stat.MaxHp>0)
+        if (Stat.MaxHp > 0)
         {
             ratio = ((float)Stat.Hp / Stat.MaxHp);
         }
@@ -147,33 +128,21 @@ public class CreatureController : BaseController
         _hpBar.SetHpBar(ratio);
     }
 
-    // 크리쳐 이동 관련
-    protected override void UpdateIdle()
-    {
-        base.UpdateIdle();
-    }
-    protected override void UpdateMoving() // 움직일 때 한칸 단위로 움직이게 해준다.
-    {
-        base.UpdateMoving();
-    }
-    protected override void UpdateSkill()
-    {
-        base.UpdateSkill();
-    }
-    protected override void UpdateDead()
-    {
-        base.UpdateDead();
-    }
-
     // 피격 판정
     public virtual void OnDamage()
     {
+
+
+        Managers.Object.Remove(Id);
+        Managers.Resource.Destroy(gameObject);
+    }
+    public virtual void OnDead()
+    {
+        State = CreatureState.Dead;
+
         GameObject effect = Managers.Resource.Instantiate("Effect/DeathEffect");
         effect.transform.position = gameObject.transform.position;
         effect.GetComponent<Animator>().Play("DEATH_EFFECT");
         GameObject.Destroy(effect, 0.5f);
-
-        Managers.Object.Remove(Id);
-        Managers.Resource.Destroy(gameObject);
     }
 }

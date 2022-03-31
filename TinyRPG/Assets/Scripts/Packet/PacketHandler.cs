@@ -17,7 +17,7 @@ class PacketHandler
     public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
     {
         S_LeaveGame leavePacket = packet as S_LeaveGame;
-        Managers.Object.RemoveMyPlayer();
+        Managers.Object.Clear();
     }
 
     public static void S_SpawnHandler(PacketSession session, IMessage packet)
@@ -85,6 +85,24 @@ class PacketHandler
         if (cc != null)
         {
             cc.Hp = hpPacket.Hp; // Stat.Hp가 아니라 Hp를 건드리면서 UpdateHp호출
+        }
+    }
+
+    public static void S_DieHandler(PacketSession session, IMessage packet)
+    {
+        S_Die hpPacket = packet as S_Die;
+        ServerSession serverSession = session as ServerSession;
+
+        GameObject go = Managers.Object.Find(hpPacket.ObjectId);
+        if (go == null)
+            return;
+
+        CreatureController cc = go.GetComponent<CreatureController>();
+        if (cc != null)
+        {
+            // TODO : 나를 죽인사람 정보에 대한 처리를 할까말까
+
+            cc.OnDead();
         }
     }
 }
