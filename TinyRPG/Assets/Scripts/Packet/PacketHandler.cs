@@ -105,4 +105,20 @@ class PacketHandler
             cc.OnDead();
         }
     }
+
+    public static void S_PortalHandler(PacketSession session, IMessage packet)
+    {
+        S_Portal portalPacket = packet as S_Portal;
+        ServerSession serverSession = session as ServerSession;
+
+        GameObject go = Managers.Object.Find(portalPacket.PlayerId);
+        if (go == null)
+            return;
+
+        MyPlayerController mc = go.GetComponent<MyPlayerController>();
+        if (mc != null)
+        {
+            //mc.MoveScene(portalPacket.Scene);
+        }
+    }
 }

@@ -22,16 +22,15 @@ namespace Server
 
         static void SceneAdd()
         {
-            SceneManager<Lobby>.Instance.Add("Lobby");
-            SceneManager<Huntingground>.Instance.Add("Huntingground");
+            SceneManager.Instance.Add(()=> { return new Lobby(); });
+            SceneManager.Instance.Add(()=> { return new Huntingground(); });
         }
 
         static void SceneUpdate(int count)
         {
             for (int i = 1; i <= count; i++)
             {
-                SceneManager<Lobby>.Instance.Find(i).Update();
-                SceneManager<Huntingground>.Instance.Find(i).Update();
+                SceneManager.Instance.Find(i).Update();
             }
         }
 
@@ -56,7 +55,7 @@ namespace Server
 			while (true)
 			{
 				// JobTimer.Instance.Flush();
-				SceneUpdate(1);
+				SceneUpdate(2);
 			}
 		}
 	}

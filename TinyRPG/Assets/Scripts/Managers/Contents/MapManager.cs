@@ -1,3 +1,4 @@
+using Google.Protobuf.Protocol;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ public struct PQNode : IComparable<PQNode>
 public class MapManager
 {
     public Grid CurrentGrid { get; private set; }
-    public Dictionary<Vector3Int, string> PortalPos { get; private set; } = new Dictionary<Vector3Int, string>();
+    public Dictionary<Vector3Int, SceneType> PortalPos { get; private set; } = new Dictionary<Vector3Int, SceneType>();
 
     public int MinX { get; set; }
     public int MaxX { get; set; }
@@ -75,6 +76,9 @@ public class MapManager
         GameObject collision = Util.FindChild(go, "Collision", true);
         if (collision != null)
             collision.SetActive(false);
+        GameObject portal = Util.FindChild(go, "Portal", true);
+        if (portal != null)
+            portal.SetActive(false);
 
         CurrentGrid = go.GetComponent<Grid>();
 
@@ -107,7 +111,17 @@ public class MapManager
             string linkName = reader.ReadLine(); // 어디로 연결 되어 있는지
             int x = int.Parse(reader.ReadLine());
             int y = int.Parse(reader.ReadLine());
-            PortalPos.Add(new Vector3Int(x, y, 0), linkName);
+            SceneType scene = SceneType.Unknown;
+            switch(linkName)
+            {
+                case "Lobby":
+                    scene = SceneType.Lobby;
+                    break;
+                case "Huntingground":
+                    scene = SceneType.Huntingground;
+                    break;
+            }
+            PortalPos.Add(new Vector3Int(x, y, 0), scene);
         }
     }
 

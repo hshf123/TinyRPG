@@ -45,7 +45,6 @@ public class HuntinggroundScene : BaseScene
         //        }
         //    }
         //}
-
     }
 
     public override void Clear()

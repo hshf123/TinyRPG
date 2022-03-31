@@ -52,7 +52,7 @@ namespace Server
 				MyPlayer.Session = this;
             }
 
-			SceneManager<Lobby>.Instance.Find(1).EnterGame(MyPlayer);
+			SceneManager.Instance.Find(1).EnterGame(MyPlayer);
 		}
 
 		public override void OnRecvPacket(ArraySegment<byte> buffer)
@@ -62,7 +62,7 @@ namespace Server
 
 		public override void OnDisconnected(EndPoint endPoint)
 		{
-			SceneManager<Lobby>.Instance.Find(1).LeaveGame(MyPlayer.Info.ObjectId);
+			SceneManager.Instance.Find(1).LeaveGame(MyPlayer.Info.ObjectId);
 
 			SessionManager.Instance.Remove(this);
 

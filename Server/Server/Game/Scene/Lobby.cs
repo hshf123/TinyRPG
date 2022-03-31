@@ -11,5 +11,10 @@ namespace Server.Game
         {
             //sceneType = SceneType.Lobby;
         }
+
+        public override void Init()
+        {
+            Map.LoadMap("Lobby");
+        }
     }
 }

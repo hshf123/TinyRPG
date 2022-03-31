@@ -27,6 +27,8 @@ class PacketManager
 		_handler.Add((ushort)MsgId.CMove, PacketHandler.C_MoveHandler);
 		_onRecv.Add((ushort)MsgId.CSkill, MakePacket<C_Skill>);
 		_handler.Add((ushort)MsgId.CSkill, PacketHandler.C_SkillHandler);
+		_onRecv.Add((ushort)MsgId.CPortal, MakePacket<C_Portal>);
+		_handler.Add((ushort)MsgId.CPortal, PacketHandler.C_PortalHandler);
 
 	}
 

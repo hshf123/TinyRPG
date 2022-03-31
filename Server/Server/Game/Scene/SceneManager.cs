@@ -4,18 +4,18 @@ using System.Text;
 
 namespace Server.Game
 {
-    class SceneManager<T> where T : Scenes, new()
+    class SceneManager
     {
-        public static SceneManager<T> Instance { get; } = new SceneManager<T>();
+        public static SceneManager Instance { get; } = new SceneManager();
 
         object _lock = new object();
-        Dictionary<int, T> _scenes = new Dictionary<int, T>();
+        Dictionary<int, Scenes> _scenes = new Dictionary<int, Scenes>();
         int _sceneId = 1;
 
-        public T Add(string mapName)
+        public Scenes Add(Func<Scenes> sceneFactory)
         {
-            T scene = new T();
-            scene.Init(mapName);
+            Scenes scene = sceneFactory.Invoke();
+            scene.Init();
 
             lock(_lock)
             {
@@ -34,14 +34,28 @@ namespace Server.Game
             }
         }
 
-        public T Find(int sceneId)
+        public Scenes Find(int sceneId)
         {
             lock (_lock)
             {
-                T scene = null;
+                Scenes scene = null;
                 if (_scenes.TryGetValue(sceneId, out scene))
                     return scene;
                 return null;
+            }
+        }
+
+        public void PortalScene(string scene)
+        {
+            switch(scene)
+            {
+                case "Lobby":
+                    break;
+                case "Huntingground":
+                    break;
+                case "Boss":
+                    // TODO
+                    break;
             }
         }
     }

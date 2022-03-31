@@ -38,7 +38,7 @@ public class MyPlayerController : PlayerController
         Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
 
-    // IDLE상태에서 Moving으로 갈지, Skill로 갈지
+    // IDLE상태에서 Moving 으로 갈지, Skill 로 갈지
     protected override void UpdateIdle()
     {
         // 이동 상태로 갈지 확인
@@ -142,15 +142,24 @@ public class MyPlayerController : PlayerController
     }
     void Portal() // 해당 좌표의 포탈이 어디로 이어지는지 찾고 해당 씬을 로드
     {
-        string mapName;
+        SceneType mapName;
         Managers.Map.PortalPos.TryGetValue(CellPos, out mapName);
-        SceneType sceneType = Managers.Scene.GetSceneType(mapName);
-        if (sceneType != SceneType.Unknown)
-        {
-            Managers.Scene.LoadScene(sceneType);
-        }
+        C_Portal portalPacket = new C_Portal();
+        portalPacket.Scene = mapName;
+        Managers.Network.Send(portalPacket);
+        Managers.Scene.LoadScene(mapName);
+
+        //SceneType sceneType = Managers.Scene.GetSceneType(mapName);
+        //if (sceneType != SceneType.Unknown)
+        //{
+        //    Managers.Scene.LoadScene(sceneType);
+        //}
     }
-    protected override void CheckUpdatedFlag() // flag를 체크해서 상태변화(State, Position, Dir)가 일어나면 패킷을 전송
+    public void MoveScene(SceneType scene)
+    {
+        Managers.Scene.LoadScene(scene);
+    }
+    protected override void CheckUpdatedFlag() // flag 를 체크해서 상태변화(State, Position, Dir)가 일어나면 패킷을 전송
     {
         if(_updated)
         {

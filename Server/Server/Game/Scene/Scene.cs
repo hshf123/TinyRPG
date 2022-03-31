@@ -7,27 +7,18 @@ using System.Text;
 
 namespace Server.Game
 {
-    public class Scenes
+    abstract public class Scenes
     {
         public int SceneId { get; set; }
         object _lock = new object();
 
-        //protected SceneType sceneType { get; set; } = SceneType.Unknown;
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
         Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
         Dictionary<int, Projectile> _projectiles = new Dictionary<int, Projectile>();
 
         public Map Map { get; private set; } = new Map();
 
-        public void Init(string mapName)
-        {
-            Map.LoadMap(mapName);
-
-            // TEMP
-            Monster monster = ObjectManager.Instance.Add<Monster>();
-            monster.CellPos = new Vector2Int(-5, -5);
-            EnterGame(monster);
-        }
+        public abstract void Init();
 
         public void Update()
         {
@@ -244,6 +235,57 @@ namespace Server.Game
                     EnterGame(arrow);
 
                 }
+            }
+        }
+
+        public void PortalScene(Player player, SceneType scene)
+        {
+            if (player == null || player.Scene == null)
+                return;
+
+            lock (_lock)
+            {
+                S_Portal portalPacket = new S_Portal();
+
+                switch (scene)
+                {
+                    case SceneType.Lobby:
+                        player.Scene.LeaveGame(player.Id);
+
+                        player.StatInfo.Hp      = player.StatInfo.MaxHp;
+                        player.PosInfo.State    = CreatureState.Idle;
+                        player.PosInfo.MoveDir  = MoveDir.Down;
+                        player.PosInfo.PosX     = 0;
+                        player.PosInfo.PosY     = 0;
+
+                        SceneManager.Instance.Find(1).EnterGame(player);
+
+                        portalPacket.PlayerId = player.Id;
+                        portalPacket.Scene = SceneType.Lobby;
+                        player.Session.Send(portalPacket);
+                        break;
+
+                    case SceneType.Huntingground:
+                        player.Scene.LeaveGame(player.Id);
+
+                        player.StatInfo.Hp = player.StatInfo.MaxHp;
+                        player.PosInfo.State = CreatureState.Idle;
+                        player.PosInfo.MoveDir = MoveDir.Down;
+                        player.PosInfo.PosX = 0;
+                        player.PosInfo.PosY = 0;
+
+                        SceneManager.Instance.Find(2).EnterGame(player);
+
+                        portalPacket.PlayerId = player.Id;
+                        portalPacket.Scene = SceneType.Huntingground;
+                        player.Session.Send(portalPacket);
+                        break;
+                    //case "Boss":
+                    //    // TODO
+                    //    break;
+                }
+
+
             }
         }
 

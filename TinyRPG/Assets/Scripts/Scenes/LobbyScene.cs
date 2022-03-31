@@ -11,8 +11,6 @@ public class LobbyScene : BaseScene
 
         Type = SceneType.Lobby;
         Managers.Map.LoadMap("Lobby");
-
-        
     }
 
     private void Update()

@@ -15,6 +15,8 @@ enum MsgId {
   S_SKILL = 7;
   S_CHANGE_HP = 8;
   S_DIE = 9;
+  C_PORTAL = 10;
+  S_PORTAL = 11;
 }
 
 enum CreatureState {
@@ -92,6 +94,15 @@ message S_ChangeHp {
 message S_Die {
   int32 objectId = 1;
   int32 attackerId = 2;
+}
+
+message C_Portal {
+  SceneType scene = 1;
+}
+
+message S_Portal {
+  int32 playerId = 1;
+  SceneType scene = 2;
 }
 
 message ObjectInfo {
