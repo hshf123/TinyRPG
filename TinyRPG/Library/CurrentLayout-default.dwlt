@@ -174,7 +174,7 @@ MonoBehaviour:
   m_MinSize: {x: 950, y: 492}
   m_MaxSize: {x: 22005, y: 14042}
   vertical: 0
-  controlID: 79
+  controlID: 99
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_MinSize: {x: 442, y: 442}
   m_MaxSize: {x: 8002, y: 8042}
   vertical: 1
-  controlID: 80
+  controlID: 100
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_MinSize: {x: 276, y: 192}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 194
+  controlID: 192
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -704,9 +704,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.5493432, y: 0.7499826, z: -0.11231946}
+    m_Target: {x: -0.29345837, y: 0.7303759, z: -1.7991726}
     speed: 2
-    m_Value: {x: -0.5493432, y: 0.7499826, z: -0.11231946}
+    m_Value: {x: -0.29345837, y: 0.7303759, z: -1.7991726}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -757,9 +757,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1.7363057
+    m_Target: 11.87558
     speed: 2
-    m_Value: 1.7363057
+    m_Value: 11.87558
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -812,9 +812,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: f0eeffff1aefffff1cefffff20efffff60efffff8aefffff70f0ffff76f0ffff5efbffff
+      m_SelectedIDs: eae7ffff
+      m_LastClickedID: -6166
+      m_ExpandedIDs: 20f3ffff72f9ffff5efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -876,21 +876,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Packet
+    - Assets/Resources/Prefabs/Creature
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Packet
+  - Assets/Resources/Prefabs/Creature
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\hshf123\Unity_Projects\TinyRPG\TinyRPG
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 184d0000
-    m_LastClickedID: 19736
+    m_SelectedIDs: fc4c0000
+    m_LastClickedID: 19708
     m_ExpandedIDs: 0000000040460000424600004446000046460000484600004a4600004c4600004e46000050460000524600005446000056460000584600005a4600005c4600005e4600006046000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -946,7 +946,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300001a45000000000000e8490000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

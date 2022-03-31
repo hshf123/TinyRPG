@@ -47,7 +47,15 @@ public class ObjectManager
         }
         else if(type == GameObjectType.Monster)
         {
-            // TODO
+            GameObject player = Managers.Resource.Instantiate("Creature/RedHero");
+            player.name = info.Name;
+            _objects.Add(info.ObjectId, player);
+
+            MonsterController mc = player.GetComponent<MonsterController>();
+            mc.Id = info.ObjectId;
+            mc.PosInfo = info.PosInfo;
+            mc.Stat = info.StatInfo;
+            mc.SyncPos();
         }
         else if(type == GameObjectType.Projectile)
         {
@@ -71,7 +79,7 @@ public class ObjectManager
         _objects.Remove(id);
     }
 
-    public GameObject FindCreature(Vector3Int cellPos)
+    public GameObject Find(Vector3Int cellPos)
     {
         foreach (GameObject go in _objects.Values)
         {

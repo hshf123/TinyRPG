@@ -11,5 +11,6 @@ namespace Server.Game
         {
             //sceneType = SceneType.Huntingground;
         }
+
     }
 }

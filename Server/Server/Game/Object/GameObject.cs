@@ -12,6 +12,8 @@ namespace Server.Game
         public Scenes Scene { get; set; } // 오브젝트가 어떤 씬에 있는지
         public ObjectInfo Info { get; set; } = new ObjectInfo();
         public PositionInfo PosInfo { get; private set; } = new PositionInfo();
+        public CreatureState State { get { return PosInfo.State; } set { PosInfo.State = value; } }
+        public MoveDir Dir { get { return PosInfo.MoveDir; } set { PosInfo.MoveDir = value; } }
         public StatInfo StatInfo { get; private set; } = new StatInfo();
         public float Speed { get { return StatInfo.Speed; } set { StatInfo.Speed = value; } }
 
@@ -19,6 +21,11 @@ namespace Server.Game
         {
             Info.PosInfo = PosInfo;
             Info.StatInfo = StatInfo;
+        }
+
+        public virtual void Update()
+        {
+
         }
 
         public Vector2Int CellPos
@@ -34,6 +41,18 @@ namespace Server.Game
         public Vector2Int GetFrontCellPos()
         {
             return GetFrontCellPos(PosInfo.MoveDir);
+        }
+
+        public static MoveDir GetDirFromVec(Vector2Int dir)
+        {
+            if (dir.x > 0)
+                return MoveDir.Right;
+            else if (dir.x < 0)
+                return MoveDir.Left;
+            else if (dir.y > 0)
+                return MoveDir.Up;
+            else
+                return MoveDir.Down;
         }
 
         public Vector2Int GetFrontCellPos(MoveDir dir)

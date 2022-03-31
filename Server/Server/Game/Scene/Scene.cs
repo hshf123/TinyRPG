@@ -22,6 +22,11 @@ namespace Server.Game
         public void Init(string mapName)
         {
             Map.LoadMap(mapName);
+
+            // TEMP
+            Monster monster = ObjectManager.Instance.Add<Monster>();
+            monster.CellPos = new Vector2Int(-5, -5);
+            EnterGame(monster);
         }
 
         public void Update()
@@ -31,6 +36,11 @@ namespace Server.Game
                 foreach (Projectile projectile in _projectiles.Values)
                 {
                     projectile.Update();
+                }
+
+                foreach (Monster monster in _monsters.Values)
+                {
+                    monster.Update();
                 }
             }
         }
@@ -235,6 +245,21 @@ namespace Server.Game
 
                 }
             }
+        }
+
+        //-------------------------------------------------------
+        //                  서버 기능
+        //-------------------------------------------------------
+
+        public Player FindPlayer(Predicate<GameObject> condition)
+        {
+            foreach (Player player in _players.Values)
+            {
+                if (condition.Invoke(player))
+                    return player;
+            }
+
+            return null;
         }
 
         // 속해있는 씬에 있는 모두에게 브로드 캐스트
