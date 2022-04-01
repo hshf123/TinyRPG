@@ -7,6 +7,8 @@ namespace Server.Game
 {
     class Huntingground : Scenes
     {
+        List<Monster> monsters = new List<Monster>();
+
         public Huntingground()
         {
             //sceneType = SceneType.Huntingground;
@@ -16,15 +18,36 @@ namespace Server.Game
         {
             Map.LoadMap("Huntingground");
 
-            // TEMP
-            Monster monster = ObjectManager.Instance.Add<Monster>();
-            monster.CellPos = new Vector2Int(-5, -5);
-            EnterGame(monster);
+            MonsterSpawn();
         }
 
         public void MonsterSpawn()
         {
+            for (int i = 0; i < 4; i++)
+            {
+                Monster monster = ObjectManager.Instance.Add<Monster>();
+                monsters.Add(monster);
+            }
 
+            Random random = new Random();
+            //몬스터 위치 랜덤 설정
+            foreach (Monster monster in monsters)
+            {
+                while (true)
+                {
+                    Vector2Int pos = new Vector2Int()
+                    {
+                        x = random.Next(-20, 20),
+                        y = random.Next(-20, 20)
+                    };
+                    if (Map.CanGo(pos))
+                    {
+                        monster.CellPos = pos;
+                        EnterGame(monster);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

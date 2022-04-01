@@ -14,11 +14,13 @@ namespace Server.Data
     public class DataManager
     {
         public static Dictionary<int, StatInfo> StatDict { get; private set; } = new Dictionary<int, StatInfo>();
+        public static Dictionary<int, StatInfo> MonsterStatDict { get; private set; } = new Dictionary<int, StatInfo>();
         public static Dictionary<int, Skill> SkillDict { get; private set; } = new Dictionary<int, Skill>();
 
         public static void Init()
         {
             StatDict = LoadJSon<StatData, int, StatInfo>("StatData").MakeDick();
+            MonsterStatDict = LoadJSon<StatData, int, StatInfo>("MonsterStatData").MakeDick();
             SkillDict = LoadJSon<SkillData, int, Skill>("SkillData").MakeDick();
         }
 

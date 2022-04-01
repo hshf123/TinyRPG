@@ -14,10 +14,14 @@ namespace Server.Game
 
             // TODO : DataSheet로 따로 빼서 관리
 
-            StatInfo.Level = 1;
-            StatInfo.Hp = 100;
-            StatInfo.MaxHp = 100;
-            StatInfo.Speed = 5.0f;
+            StatInfo stat = null;
+            if (DataManager.MonsterStatDict.TryGetValue(1, out stat) == false)
+                return;
+
+            StatInfo.Level = stat.Level;
+            StatInfo.Hp = stat.Hp;
+            StatInfo.MaxHp = stat.MaxHp;
+            StatInfo.Speed = stat.Speed;
 
             State = CreatureState.Idle;
         }
@@ -187,6 +191,36 @@ namespace Server.Game
         protected virtual void UpdateDead()
         {
 
+        }
+        public override void OnDead(GameObject attacker)
+        {
+            S_Die diePacket = new S_Die();
+            diePacket.ObjectId = Id;
+            diePacket.AttackerId = attacker.Id;
+            Scene.Broadcast(diePacket);
+
+            Scenes scene = Scene;
+            scene.LeaveGame(Id);
+
+            StatInfo.Hp = StatInfo.MaxHp;
+            PosInfo.State = CreatureState.Idle;
+            PosInfo.MoveDir = MoveDir.Down;
+            Random random = new Random();
+            while (true)
+            {
+                Vector2Int pos = new Vector2Int()
+                {
+                    x = random.Next(-20, 20),
+                    y = random.Next(-20, 20)
+                };
+                if (scene.Map.CanGo(pos))
+                {
+                    CellPos = pos;
+                    break;
+                }
+            }
+
+            scene.EnterGame(this);
         }
     }
 }
