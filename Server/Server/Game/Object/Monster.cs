@@ -21,6 +21,7 @@ namespace Server.Game
             StatInfo.Level = stat.Level;
             StatInfo.Hp = stat.Hp;
             StatInfo.MaxHp = stat.MaxHp;
+            StatInfo.Attack = stat.Attack;
             StatInfo.Speed = stat.Speed;
 
             State = CreatureState.Idle;
@@ -59,7 +60,7 @@ namespace Server.Game
             }
         }
         Player _target;
-        int _searchRange = 10; // 몬스터가 플레이어를 찾는 범위
+        int _searchRange = 7; // 몬스터가 플레이어를 찾는 범위
         int _chaseRange = 10; // 몬스터가 플레이어를 쫓아가는 범위
         int _skillRange = 1; // 몬스터가 스킬을 사용하게 되는 범위
         long _nextSearchTick = 0;
@@ -167,7 +168,7 @@ namespace Server.Game
                 }
 
                 Skill skillData = null;
-                DataManager.SkillDict.TryGetValue(1, out skillData);
+                DataManager.SkillDict.TryGetValue(0, out skillData);
 
                 // 데미지 판정
                 _target.OnDamaged(this, skillData.damage + StatInfo.Attack);

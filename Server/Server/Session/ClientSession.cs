@@ -13,15 +13,15 @@ using Server.Data;
 
 namespace Server
 {
-	public class ClientSession : PacketSession
-	{
-		public Player MyPlayer { get; set; }
-		public int SessionId { get; set; }
+    public class ClientSession : PacketSession
+    {
+        public Player MyPlayer { get; set; }
+        public int SessionId { get; set; }
 
-		public void Send(IMessage packet)
+        public void Send(IMessage packet)
         {
-			string msgName = packet.Descriptor.Name.Replace("_",string.Empty);
-			MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
+            string msgName = packet.Descriptor.Name.Replace("_", string.Empty);
+            MsgId msgId = (MsgId)Enum.Parse(typeof(MsgId), msgName);
 
             ushort size = (ushort)packet.CalculateSize(); // 사이즈
             byte[] sendBuffer = new byte[size + 4];
@@ -29,12 +29,12 @@ namespace Server
             Array.Copy(BitConverter.GetBytes((ushort)msgId), 0, sendBuffer, 2, sizeof(ushort));
             Array.Copy(packet.ToByteArray(), 0, sendBuffer, 4, size);
 
-			Send(new ArraySegment<byte>(sendBuffer));
+            Send(new ArraySegment<byte>(sendBuffer));
         }
 
-		public override void OnConnected(EndPoint endPoint)
-		{
-			Console.WriteLine($"OnConnected : {endPoint}");
+        public override void OnConnected(EndPoint endPoint)
+        {
+            Console.WriteLine($"OnConnected : {endPoint}");
 
             StatInfo stat = null;
             if (DataManager.StatDict.TryGetValue(1, out stat) == false)
@@ -42,36 +42,39 @@ namespace Server
 
             MyPlayer = ObjectManager.Instance.Add<Player>();
             {
-				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
-				MyPlayer.Info.PosInfo.State = CreatureState.Idle;
-				MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
-				MyPlayer.Info.PosInfo.PosX = 0;
-				MyPlayer.Info.PosInfo.PosY = 0;
+                MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
+                MyPlayer.Info.PosInfo.State = CreatureState.Idle;
+                MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
+                MyPlayer.Info.PosInfo.PosX = 0;
+                MyPlayer.Info.PosInfo.PosY = 0;
 
-				MyPlayer.StatInfo.MergeFrom(stat);
-				MyPlayer.Session = this;
+                MyPlayer.StatInfo.MergeFrom(stat);
+                MyPlayer.Session = this;
             }
 
-			SceneManager.Instance.Find(1).EnterGame(MyPlayer);
-		}
+            SceneManager.Instance.Find(1).EnterGame(MyPlayer);
+        }
 
-		public override void OnRecvPacket(ArraySegment<byte> buffer)
-		{
-			PacketManager.Instance.OnRecvPacket(this, buffer);
-		}
+        public override void OnRecvPacket(ArraySegment<byte> buffer)
+        {
+            PacketManager.Instance.OnRecvPacket(this, buffer);
+        }
 
-		public override void OnDisconnected(EndPoint endPoint)
-		{
-			SceneManager.Instance.Find(1).LeaveGame(MyPlayer.Info.ObjectId);
+        public override void OnDisconnected(EndPoint endPoint)
+        {
+            for (int i = 1; i < 3; i++)
+            {
+                SceneManager.Instance.Find(i).LeaveGame(MyPlayer.Info.ObjectId);
+            }
 
-			SessionManager.Instance.Remove(this);
+            SessionManager.Instance.Remove(this);
 
-			Console.WriteLine($"OnDisconnected : {endPoint}");
-		}
+            Console.WriteLine($"OnDisconnected : {endPoint}");
+        }
 
-		public override void OnSend(int numOfBytes)
-		{
-			//Console.WriteLine($"Transferred bytes: {numOfBytes}");
-		}
-	}
+        public override void OnSend(int numOfBytes)
+        {
+            //Console.WriteLine($"Transferred bytes: {numOfBytes}");
+        }
+    }
 }

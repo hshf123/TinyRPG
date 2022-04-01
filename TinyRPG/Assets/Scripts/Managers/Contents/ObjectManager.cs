@@ -7,7 +7,7 @@ using UnityEngine;
 public class ObjectManager
 {
     public MyPlayerController MyPlayer { get; set; } // 나를 찾기위한 용도
-    Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>(); // 서버 연동 대비
+    Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>();
 
     public static GameObjectType GetObjectTypeById(int id)
     {
@@ -47,11 +47,11 @@ public class ObjectManager
         }
         else if(type == GameObjectType.Monster)
         {
-            GameObject player = Managers.Resource.Instantiate("Creature/RedHero");
-            player.name = info.Name;
-            _objects.Add(info.ObjectId, player);
+            GameObject monster = Managers.Resource.Instantiate("Creature/RedHero");
+            monster.name = info.Name;
+            _objects.Add(info.ObjectId, monster);
 
-            MonsterController mc = player.GetComponent<MonsterController>();
+            MonsterController mc = monster.GetComponent<MonsterController>();
             mc.Id = info.ObjectId;
             mc.PosInfo = info.PosInfo;
             mc.Stat = info.StatInfo;

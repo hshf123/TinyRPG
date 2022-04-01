@@ -1,6 +1,13 @@
 {
   "skills": [
     {
+      "id": "0",
+      "name": "몬스터 평타",
+      "cooldown": "0.7",
+      "damage": "5",
+      "skillType": "SkillAuto"
+    },
+    {
       "id": "1",
       "name": "평타",
       "cooldown": "0.3",

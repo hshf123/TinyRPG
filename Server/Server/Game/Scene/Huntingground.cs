@@ -23,7 +23,7 @@ namespace Server.Game
 
         public void MonsterSpawn()
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 15; i++)
             {
                 Monster monster = ObjectManager.Instance.Add<Monster>();
                 monsters.Add(monster);
