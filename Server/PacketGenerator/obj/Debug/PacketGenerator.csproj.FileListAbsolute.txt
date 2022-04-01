@@ -5,7 +5,6 @@ C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\bin\PacketGenerator.run
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\bin\PacketGenerator.dll
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\bin\PacketGenerator.pdb
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\bin\Google.Protobuf.dll
-C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerator.csproj.AssemblyReference.cache
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerator.GeneratedMSBuildEditorConfig.editorconfig
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerator.AssemblyInfoInputs.cache
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerator.AssemblyInfo.cs
@@ -14,3 +13,4 @@ C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerat
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerator.dll
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerator.pdb
 C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerator.genruntimeconfig.cache
+C:\hshf123\Unity_Projects\TinyRPG\Server\PacketGenerator\obj\Debug\PacketGenerator.csproj.AssemblyReference.cache

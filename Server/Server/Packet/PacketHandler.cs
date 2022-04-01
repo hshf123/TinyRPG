@@ -43,6 +43,22 @@ class PacketHandler
         scene.HandleSkill(player, skillPacket);
     }
 
+    public static void C_PortalLoadHandler(PacketSession session, IMessage packet)
+    {
+        C_PortalLoad loadPacket = packet as C_PortalLoad;
+        ClientSession clientSession = session as ClientSession;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+
+        Scenes scene = player.Scene;
+        if (scene == null)
+            return;
+
+        scene.LoadScene(player, loadPacket);
+    }
+
     public static void C_PortalHandler(PacketSession session, IMessage packet)
     {
         C_Portal portalPacket = packet as C_Portal;
@@ -56,7 +72,6 @@ class PacketHandler
         if (scene == null)
             return;
 
-        SceneType sceneName = portalPacket.Scene; // 이동하려는 씬 이름을 추출
-        scene.PortalScene(player, sceneName);
+        scene.PortalScene(player, portalPacket);
     }
 }

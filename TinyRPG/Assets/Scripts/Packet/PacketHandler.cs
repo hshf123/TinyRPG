@@ -106,19 +106,19 @@ class PacketHandler
         }
     }
 
-    public static void S_PortalHandler(PacketSession session, IMessage packet)
+    public static void S_PortalLoadHandler(PacketSession session, IMessage packet)
     {
-        S_Portal portalPacket = packet as S_Portal;
+        S_PortalLoad loadPacket = packet as S_PortalLoad;
         ServerSession serverSession = session as ServerSession;
 
-        GameObject go = Managers.Object.Find(portalPacket.PlayerId);
+        GameObject go = Managers.Object.Find(loadPacket.PlayerId);
         if (go == null)
             return;
 
         MyPlayerController mc = go.GetComponent<MyPlayerController>();
         if (mc != null)
         {
-            //mc.MoveScene(portalPacket.Scene);
+            mc.PortalLoad(loadPacket.HopeScene);
         }
     }
 }

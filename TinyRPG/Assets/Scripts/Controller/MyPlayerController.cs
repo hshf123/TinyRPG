@@ -140,25 +140,24 @@ public class MyPlayerController : PlayerController
             _keyPressed = false;
         }
     }
-    void Portal() // 해당 좌표의 포탈이 어디로 이어지는지 찾고 해당 씬을 로드
+    void Portal() // 해당 좌표의 포탈이 어디로 이어지는지 찾고 이름 전송
     {
         SceneType mapName;
         Managers.Map.PortalPos.TryGetValue(CellPos, out mapName);
-        C_Portal portalPacket = new C_Portal();
-        portalPacket.Scene = mapName;
-        Managers.Network.Send(portalPacket);
-        Managers.Scene.LoadScene(mapName);
-
-        //SceneType sceneType = Managers.Scene.GetSceneType(mapName);
-        //if (sceneType != SceneType.Unknown)
-        //{
-        //    Managers.Scene.LoadScene(sceneType);
-        //}
+        C_PortalLoad loadPacket = new C_PortalLoad();
+        loadPacket.CurruntScene = Managers.Scene.GetSceneType(SceneManager.GetActiveScene().name);
+        loadPacket.HopeScene = mapName;
+        Managers.Network.Send(loadPacket);
     }
-    public void MoveScene(SceneType scene)
+    public void PortalLoad(SceneType scene)
     {
         Managers.Scene.LoadScene(scene);
+
+        C_Portal portalPacket = new C_Portal();
+        portalPacket.HopeScene = scene;
+        Managers.Network.Send(portalPacket);
     }
+
     protected override void CheckUpdatedFlag() // flag 를 체크해서 상태변화(State, Position, Dir)가 일어나면 패킷을 전송
     {
         if(_updated)

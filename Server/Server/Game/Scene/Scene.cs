@@ -238,15 +238,32 @@ namespace Server.Game
             }
         }
 
-        public void PortalScene(Player player, SceneType scene)
+        public void LoadScene(Player player, C_PortalLoad packet)
+        {
+            lock(_lock)
+            {
+                SceneType currunt = packet.CurruntScene;
+                // TODO : 현재씬에 대한 검증, 이동할 씬에 대한 조건체크
+                // 이동가능한지 등등
+
+                SceneType hope = packet.HopeScene;
+                S_PortalLoad loadPacket = new S_PortalLoad();
+                loadPacket.PlayerId = player.Id;
+                loadPacket.HopeScene = hope;
+                player.Session.Send(loadPacket);
+            }
+        }
+
+        public void PortalScene(Player player, C_Portal packet)
         {
             if (player == null || player.Scene == null)
                 return;
 
+            SceneType scene = packet.HopeScene;
+
             lock (_lock)
             {
-                S_Portal portalPacket = new S_Portal();
-
+                // TODO : 포탈위치 데이터시트로 빼기 일단은 0, 0으로
                 switch (scene)
                 {
                     case SceneType.Lobby:
@@ -259,10 +276,6 @@ namespace Server.Game
                         player.PosInfo.PosY     = 0;
 
                         SceneManager.Instance.Find(1).EnterGame(player);
-
-                        portalPacket.PlayerId = player.Id;
-                        portalPacket.Scene = SceneType.Lobby;
-                        player.Session.Send(portalPacket);
                         break;
 
                     case SceneType.Huntingground:
@@ -275,10 +288,6 @@ namespace Server.Game
                         player.PosInfo.PosY = 0;
 
                         SceneManager.Instance.Find(2).EnterGame(player);
-
-                        portalPacket.PlayerId = player.Id;
-                        portalPacket.Scene = SceneType.Huntingground;
-                        player.Session.Send(portalPacket);
                         break;
                     //case "Boss":
                     //    // TODO

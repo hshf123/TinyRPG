@@ -22,5 +22,9 @@ namespace Server.Game
             EnterGame(monster);
         }
 
+        public void MonsterSpawn()
+        {
+
+        }
     }
 }
