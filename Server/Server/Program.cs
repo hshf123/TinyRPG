@@ -11,52 +11,52 @@ using ServerCore;
 
 namespace Server
 {
-	class Program
-	{
-		static Listener _listener = new Listener();
+    class Program
+    {
+        static Listener _listener = new Listener();
 
-        static void FlushRoom()
+        static void TickRoom(Scenes scene, int tick  = 100)
         {
-            JobTimer.Instance.Push(FlushRoom, 250);
+            var timer = new System.Timers.Timer();
+            timer.Interval = tick;
+            timer.Elapsed += ((s, e) => { scene.Update(); });
+            timer.AutoReset = true;
+            timer.Enabled = true;
         }
 
-        static void SceneAdd()
+        static List<Scenes> SceneAdd()
         {
-            SceneManager.Instance.Add(()=> { return new Lobby(); });
-            SceneManager.Instance.Add(()=> { return new Huntingground(); });
-        }
+            List<Scenes> scenes = new List<Scenes>();
 
-        static void SceneUpdate(int count)
-        {
-            for (int i = 1; i <= count; i++)
-            {
-                SceneManager.Instance.Find(i).Update();
-            }
+            scenes.Add(SceneManager.Instance.Add(() => { return new Lobby(); }));
+            scenes.Add(SceneManager.Instance.Add(() => { return new Huntingground(); }));
+
+            return scenes;
         }
 
         static void Main(string[] args)
         {
             ConfigManager.LoadConfig();
             DataManager.Init();
-            SceneAdd();
+            List<Scenes> scenes = SceneAdd();
+            foreach(Scenes scene in scenes)
+            {
+                TickRoom(scene, 50);
+            }
 
-			// DNS (Domain Name System)
-			string host = Dns.GetHostName();
-			IPHostEntry ipHost = Dns.GetHostEntry(host);
-			IPAddress ipAddr = ipHost.AddressList[0];
-			IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
+            // DNS (Domain Name System)
+            string host = Dns.GetHostName();
+            IPHostEntry ipHost = Dns.GetHostEntry(host);
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);
 
-			_listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
-			Console.WriteLine("Listening...");
+            _listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
+            Console.WriteLine("연결 대기중...");
 
-			//FlushRoom();
-			JobTimer.Instance.Push(FlushRoom);
-
-			while (true)
-			{
-				// JobTimer.Instance.Flush();
-				SceneUpdate(2);
-			}
-		}
-	}
+            while (true)
+            {
+                Thread.Sleep(100);
+            }
+        }
+    }
 }

@@ -97,6 +97,11 @@ namespace Server.Game
         public bool ApplyMove(GameObject go, Vector2Int destPos)
         {
             ApplyLeave(go);
+
+            if (go.Scene == null)
+                return false;
+            if (go.Scene.Map != this)
+                return false;
             if (CanGo(destPos) == false)
                 return false;
 
@@ -114,6 +119,11 @@ namespace Server.Game
 
         public bool ApplyLeave(GameObject go)
         {
+            if (go.Scene == null)
+                return false;
+            if (go.Scene.Map != this)
+                return false;
+
             PositionInfo posInfo = go.Info.PosInfo;
             if (posInfo.PosX < MinX || posInfo.PosX > MaxX)
                 return false;

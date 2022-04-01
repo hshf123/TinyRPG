@@ -43,7 +43,7 @@ namespace Server.Game
                     if (Map.CanGo(pos))
                     {
                         monster.CellPos = pos;
-                        EnterGame(monster);
+                        Push(EnterGame, monster);
                         break;
                     }
                 }

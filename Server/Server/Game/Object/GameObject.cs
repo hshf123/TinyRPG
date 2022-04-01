@@ -81,11 +81,14 @@ namespace Server.Game
 
         public virtual void OnDamaged(GameObject attacker, int damage)
         {
-            
+
         }
 
         public virtual void OnDead(GameObject attacker)
         {
+            if (Scene == null)
+                return;
+
             S_Die diePacket = new S_Die();
             diePacket.ObjectId = Id;
             diePacket.AttackerId = attacker.Id;

@@ -35,8 +35,6 @@ namespace Server.Game
                 movePacket.ObjectId = Id;
                 movePacket.PosInfo = PosInfo;
                 Scene.Broadcast(movePacket);
-
-                Console.WriteLine("Move Arrow");
             }
             else
             {
@@ -48,7 +46,7 @@ namespace Server.Game
                 }
 
                 // 소멸
-                Scene.LeaveGame(Id);
+                Scene.Push(Scene.LeaveGame, Id);
             }
         }
     }

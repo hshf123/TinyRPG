@@ -24,7 +24,7 @@ class PacketHandler
         if (scene == null)
             return;
 
-        scene.HandleMove(player, movePacket);
+        scene.Push(scene.HandleMove, player, movePacket);
     }
 
     public static void C_SkillHandler(PacketSession session, IMessage packet)
@@ -40,7 +40,7 @@ class PacketHandler
         if (scene == null)
             return;
 
-        scene.HandleSkill(player, skillPacket);
+        scene.Push(scene.HandleSkill, player, skillPacket);
     }
 
     public static void C_PortalLoadHandler(PacketSession session, IMessage packet)
@@ -56,7 +56,7 @@ class PacketHandler
         if (scene == null)
             return;
 
-        scene.LoadScene(player, loadPacket);
+        scene.Push(scene.LoadScene, player, loadPacket);
     }
 
     public static void C_PortalHandler(PacketSession session, IMessage packet)
@@ -72,6 +72,6 @@ class PacketHandler
         if (scene == null)
             return;
 
-        scene.PortalScene(player, portalPacket);
+        scene.Push(scene.PortalScene, player, portalPacket);
     }
 }

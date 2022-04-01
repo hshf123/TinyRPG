@@ -52,7 +52,8 @@ namespace Server
                 MyPlayer.Session = this;
             }
 
-            SceneManager.Instance.Find(1).EnterGame(MyPlayer);
+            Scenes scene = SceneManager.Instance.Find(1);
+            scene.Push(scene.EnterGame, MyPlayer);
         }
 
         public override void OnRecvPacket(ArraySegment<byte> buffer)
@@ -64,7 +65,8 @@ namespace Server
         {
             for (int i = 1; i < 3; i++)
             {
-                SceneManager.Instance.Find(i).LeaveGame(MyPlayer.Info.ObjectId);
+                Scenes scene = SceneManager.Instance.Find(i);
+                scene.Push(scene.LeaveGame, MyPlayer.Info.ObjectId);
             }
 
             SessionManager.Instance.Remove(this);

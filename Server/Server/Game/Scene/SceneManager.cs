@@ -15,7 +15,7 @@ namespace Server.Game
         public Scenes Add(Func<Scenes> sceneFactory)
         {
             Scenes scene = sceneFactory.Invoke();
-            scene.Init();
+            scene.Push(scene.Init);
 
             lock(_lock)
             {
