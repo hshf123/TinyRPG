@@ -32,6 +32,7 @@ enum GameObjectType {
   PLAYER = 1;
   MONSTER = 2;
   PROJECTILE = 3;
+  BOSS_MOB = 4;
 }
 
 enum SkillType {
@@ -51,6 +52,7 @@ enum SceneType {
   UNKNOWN = 0;
   LOBBY = 1;
   HUNTINGGROUND = 2;
+  BOSS = 3;
 }
 
 message S_EnterGame {

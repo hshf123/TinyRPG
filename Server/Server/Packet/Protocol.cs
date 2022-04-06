@@ -55,13 +55,13 @@ namespace Google.Protobuf.Protocol {
             "C1NfQ0hBTkdFX0hQEAgSCQoFU19ESUUQCRIRCg1DX1BPUlRBTF9MT0FEEAoS",
             "EQoNU19QT1JUQUxfTE9BRBALEgwKCENfUE9SVEFMEAwqOgoNQ3JlYXR1cmVT",
             "dGF0ZRIICgRJRExFEAASCgoGTU9WSU5HEAESCQoFU0tJTEwQAhIICgRERUFE",
-            "EAMqQwoOR2FtZU9iamVjdFR5cGUSCAoETk9ORRAAEgoKBlBMQVlFUhABEgsK",
-            "B01PTlNURVIQAhIOCgpQUk9KRUNUSUxFEAMqQQoJU2tpbGxUeXBlEg4KClNL",
-            "SUxMX05PTkUQABIOCgpTS0lMTF9BVVRPEAESFAoQU0tJTExfUFJPSkVDVElM",
-            "RRACKjAKB01vdmVEaXISBgoCVVAQABIJCgVSSUdIVBABEggKBERPV04QAhII",
-            "CgRMRUZUEAMqNgoJU2NlbmVUeXBlEgsKB1VOS05PV04QABIJCgVMT0JCWRAB",
-            "EhEKDUhVTlRJTkdHUk9VTkQQAkIbqgIYR29vZ2xlLlByb3RvYnVmLlByb3Rv",
-            "Y29sYgZwcm90bzM="));
+            "EAMqUQoOR2FtZU9iamVjdFR5cGUSCAoETk9ORRAAEgoKBlBMQVlFUhABEgsK",
+            "B01PTlNURVIQAhIOCgpQUk9KRUNUSUxFEAMSDAoIQk9TU19NT0IQBCpBCglT",
+            "a2lsbFR5cGUSDgoKU0tJTExfTk9ORRAAEg4KClNLSUxMX0FVVE8QARIUChBT",
+            "S0lMTF9QUk9KRUNUSUxFEAIqMAoHTW92ZURpchIGCgJVUBAAEgkKBVJJR0hU",
+            "EAESCAoERE9XThACEggKBExFRlQQAypACglTY2VuZVR5cGUSCwoHVU5LTk9X",
+            "ThAAEgkKBUxPQkJZEAESEQoNSFVOVElOR0dST1VORBACEggKBEJPU1MQA0Ib",
+            "qgIYR29vZ2xlLlByb3RvYnVmLlByb3RvY29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.CreatureState), typeof(global::Google.Protobuf.Protocol.GameObjectType), typeof(global::Google.Protobuf.Protocol.SkillType), typeof(global::Google.Protobuf.Protocol.MoveDir), typeof(global::Google.Protobuf.Protocol.SceneType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -116,6 +116,7 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("PLAYER")] Player = 1,
     [pbr::OriginalName("MONSTER")] Monster = 2,
     [pbr::OriginalName("PROJECTILE")] Projectile = 3,
+    [pbr::OriginalName("BOSS_MOB")] BossMob = 4,
   }
 
   public enum SkillType {
@@ -135,6 +136,7 @@ namespace Google.Protobuf.Protocol {
     [pbr::OriginalName("UNKNOWN")] Unknown = 0,
     [pbr::OriginalName("LOBBY")] Lobby = 1,
     [pbr::OriginalName("HUNTINGGROUND")] Huntingground = 2,
+    [pbr::OriginalName("BOSS")] Boss = 3,
   }
 
   #endregion

@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Game
   m_RootView: {fileID: 4}
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 521}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 443, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 23
+  controlID: 212
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_MinSize: {x: 950, y: 471}
   m_MaxSize: {x: 22006, y: 14021}
   vertical: 0
-  controlID: 21
+  controlID: 210
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_MinSize: {x: 443, y: 442}
   m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
-  controlID: 22
+  controlID: 211
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 471}
   m_MaxSize: {x: 10002, y: 14021}
   vertical: 1
-  controlID: 121
+  controlID: 96
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_MinSize: {x: 275, y: 171}
   m_MaxSize: {x: 4001, y: 8021}
   vertical: 1
-  controlID: 197
+  controlID: 167
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 25822
+  m_LastSelectedObjectID: 29094
 --- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -498,6 +498,7 @@ MonoBehaviour:
     - {fileID: 6717400148087510089, guid: cfc67e679a6fb0c4d9e23f5d7d279204, type: 2}
     - {fileID: -5022670052419177766, guid: 5260836332268af48928081ac7eed7a4, type: 2}
     - {fileID: -7952128640164944435, guid: be6923a08e05a1448a769122b8d2fcd6, type: 2}
+    - {fileID: -9112455706173944848, guid: 1a2a4badadfc5b34596a0e1b052bb932, type: 2}
     m_ValueSerializationHelper:
     - e00: 1
       e01: 0
@@ -563,10 +564,26 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
+    - e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
   m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 9100000, guid: cfc67e679a6fb0c4d9e23f5d7d279204, type: 2}
+  m_AnimatorController: {fileID: 9100000, guid: 1a2a4badadfc5b34596a0e1b052bb932, type: 2}
   m_BreadCrumbs:
-  - m_Target: {fileID: 6717400148087510089, guid: cfc67e679a6fb0c4d9e23f5d7d279204, type: 2}
+  - m_Target: {fileID: -9112455706173944848, guid: 1a2a4badadfc5b34596a0e1b052bb932, type: 2}
     m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
   stateMachineGraphGUI: {fileID: 0}
@@ -696,17 +713,17 @@ MonoBehaviour:
   m_ShowContextualTools: 0
   m_WindowGUID: 15c51c2aa222ce94485fc27c7b17195a
   m_Gizmos: 1
-  m_OverrideSceneCullingMask: 6917529027641081856
-  m_SceneIsLit: 1
+  m_OverrideSceneCullingMask: 0
+  m_SceneIsLit: 0
   m_SceneLighting: 1
   m_2DMode: 1
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.23726836, y: 0.8290431, z: -3.1465476}
+    m_Target: {x: -1.8562838, y: -6.4431186, z: -7.4805684}
     speed: 2
-    m_Value: {x: 0.23726836, y: 0.8290431, z: -3.1465476}
+    m_Value: {x: -1.8562838, y: -6.4431186, z: -7.4805684}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -718,7 +735,7 @@ MonoBehaviour:
   m_SceneViewState:
     m_AlwaysRefresh: 0
     showFog: 1
-    showSkybox: 1
+    showSkybox: 0
     showFlares: 1
     showImageEffects: 1
     showParticleSystems: 1
@@ -757,9 +774,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 5.118565
+    m_Target: 8.54424
     speed: 2
-    m_Value: 5.118565
+    m_Value: 8.54424
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -812,9 +829,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: f0eefeff1aeffeff1ceffeff20effeff60effeff8aeffeff6ef0feff72f0feffd410fffffe10ffff0011ffff0411ffff4411ffff6e11ffff5212ffff5612fffff226ffff6228fffff83dffff223effff243effff283effff683effff923effff7a3fffff823fffff3441ffff5e41ffff6041ffff6441ffffa841ffffd241ffffb642ffffba42ffff08f8ffff32f8ffff34f8ffff38f8ffff7cf8ffffa6f8ffff8af9ffff90f9ffff5efbffff
+      m_SelectedIDs: 3c800000
+      m_LastClickedID: 32828
+      m_ExpandedIDs: a810ffff348000004e800000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -876,22 +893,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Packet
+    - Assets/Resources/Prefabs/Map
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Packet
+  - Assets/Resources/Prefabs/Map
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\hshf123\Unity_Projects\TinyRPG\TinyRPG
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 124d0000
-    m_LastClickedID: 19730
-    m_ExpandedIDs: 000000003a4600003c4600003e46000040460000424600004446000046460000484600004a4600004c4600004e46000050460000524600005446000056460000584600005a46000000ca9a3b
+    scrollPos: {x: 0, y: 34}
+    m_SelectedIDs: fa4c0000
+    m_LastClickedID: 19706
+    m_ExpandedIDs: 000000003a4600003c4600003e46000040460000424600004446000046460000484600004a4600004c4600004e460000504600005246000054460000584600005a4600001c4d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -950,18 +967,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c62300001a45000000000000e8490000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Map_Boss
+      m_OriginalName: Map_Boss
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 32510
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 13}
     m_CreateAssetUtility:

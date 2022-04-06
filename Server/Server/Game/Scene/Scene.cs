@@ -1,7 +1,7 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Server.Data;
-using Server.Game.Job;
+using Server.Game;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -87,6 +87,13 @@ namespace Server.Game
                 Projectile projectile = newObject as Projectile;
                 _projectiles.Add(newObject.Id, projectile);
                 projectile.Scene = this;
+            }
+            else if (type == GameObjectType.BossMob)
+            {
+                BossMob bossMob = newObject as BossMob;
+                bossMob.Scene = this;
+
+                Map.ApplyMove(bossMob, new Vector2Int(bossMob.PosInfo.PosX, bossMob.PosInfo.PosY));
             }
 
             // 타인들한테 정보 전송
@@ -271,9 +278,17 @@ namespace Server.Game
 
                     SceneManager.Instance.Find(2).EnterGame(player);
                     break;
-                    //case "Boss":
-                    //    // TODO
-                    //    break;
+                case SceneType.Boss:
+                    player.Scene.LeaveGame(player.Id);
+
+                    player.StatInfo.Hp = player.StatInfo.MaxHp;
+                    player.PosInfo.State = CreatureState.Idle;
+                    player.PosInfo.MoveDir = MoveDir.Down;
+                    player.PosInfo.PosX = 0;
+                    player.PosInfo.PosY = -9;
+
+                    SceneManager.Instance.Find(3).EnterGame(player);
+                    break;
             }
         }
 

@@ -746,4 +746,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Lobby.unity
   - Assets/Scenes/Huntingground.unity
-  playerPath: C:/hshf123/Unity_Projects/TinyRPG/TinyRPG/../Build/Win64/TinyRPG2/TinyRPG2.exe
+  playerPath: C:/hshf123/Unity_Projects/TinyRPG/TinyRPG/../Build/Win64/TinyRPG4/TinyRPG4.exe

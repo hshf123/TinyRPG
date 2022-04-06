@@ -120,6 +120,9 @@ public class MapManager
                 case "Huntingground":
                     scene = SceneType.Huntingground;
                     break;
+                case "Boss":
+                    scene = SceneType.Boss;
+                    break;
             }
             PortalPos.Add(new Vector3Int(x, y, 0), scene);
         }

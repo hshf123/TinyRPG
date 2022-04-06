@@ -9,11 +9,6 @@ namespace Server.Game
     {
         List<Monster> monsters = new List<Monster>();
 
-        public Huntingground()
-        {
-            //sceneType = SceneType.Huntingground;
-        }
-
         public override void Init()
         {
             Map.LoadMap("Huntingground");

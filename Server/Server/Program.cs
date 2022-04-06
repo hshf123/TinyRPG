@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Server.Data;
 using Server.Game;
+using Server.Game.Scene;
 using ServerCore;
 
 namespace Server
@@ -30,6 +31,7 @@ namespace Server
 
             scenes.Add(SceneManager.Instance.Add(() => { return new Lobby(); }));
             scenes.Add(SceneManager.Instance.Add(() => { return new Huntingground(); }));
+            scenes.Add(SceneManager.Instance.Add(() => { return new Boss(); }));
 
             return scenes;
         }

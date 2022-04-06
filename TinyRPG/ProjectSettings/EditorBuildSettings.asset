@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/HuntingGround.unity
+    path: Assets/Scenes/Huntingground.unity
     guid: 68a57526f32291040850107162a935e7
+  - enabled: 1
+    path: Assets/Scenes/Boss.unity
+    guid: 1a13ea610f4511140bdf163e75350c8f
   m_configObjects: {}

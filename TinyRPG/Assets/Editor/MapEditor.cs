@@ -59,28 +59,6 @@ public class MapEditor
             // Portal 파일 생성
             using (var writer = File.CreateText($"{path}/{portalTxt}.txt"))
             {
-                /*writer.WriteLine(env.cellBounds.xMin);
-                writer.WriteLine(env.cellBounds.xMax);
-                writer.WriteLine(env.cellBounds.yMin);
-                writer.WriteLine(env.cellBounds.yMax);
-
-                for (int y = env.cellBounds.yMax; y >= env.cellBounds.yMin; y--)
-                {
-                    for (int x = env.cellBounds.xMin; x <= env.cellBounds.xMax; x++)
-                    {
-                        Tilemap[] portals = Util.FindChilds<Tilemap>(portal.gameObject);
-                        foreach (Tilemap p in portals)
-                        {
-                            TileBase tb = p.GetTile(new Vector3Int(x, y, 0));
-                            if (tb != null)
-                                writer.Write("1");
-                            else
-                                writer.Write("0");
-                        }
-                    }
-                    writer.WriteLine();
-                }*/
-
                 Tilemap[] portals = Util.FindChilds<Tilemap>(portal.gameObject);
                 writer.WriteLine(portals.Length);
                 foreach (Tilemap p in portals)
@@ -100,7 +78,6 @@ public class MapEditor
                     }
                 }
             }
-
         }
     }
 

@@ -12,8 +12,6 @@ namespace Server.Game
         {
             ObjectType = GameObjectType.Monster;
 
-            // TODO : DataSheet로 따로 빼서 관리
-
             StatInfo stat = null;
             if (DataManager.MonsterStatDict.TryGetValue(1, out stat) == false)
                 return;
