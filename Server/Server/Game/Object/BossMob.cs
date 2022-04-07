@@ -144,7 +144,9 @@ namespace Server.Game
                 Skill skillData = null;
                 DataManager.SkillDict.TryGetValue(3, out skillData);
 
-                for(int i=0; i<4; i++)
+                Random random = new Random();
+
+                for (int i = 0; i < 3; i++)
                 {
                     Arrow arrow = ObjectManager.Instance.Add<Arrow>();
                     if (arrow == null)
@@ -153,7 +155,7 @@ namespace Server.Game
                     arrow.Owner = this;
                     arrow.Data = skillData;
                     arrow.PosInfo.State = CreatureState.Moving;
-                    arrow.PosInfo.MoveDir = (MoveDir)i;
+                    arrow.PosInfo.MoveDir = (MoveDir)random.Next(0, 5);
                     arrow.PosInfo.PosX = PosInfo.PosX;
                     arrow.PosInfo.PosY = PosInfo.PosY;
                     arrow.Speed = skillData.projectile.speed;
