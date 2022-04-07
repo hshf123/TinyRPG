@@ -33,6 +33,11 @@ namespace Server.Game
                 monster.Update();
             }
 
+            foreach (BossMob boss in _bossMobs.Values)
+            {
+                boss.Update();
+            }
+
             Flush();
         }
 

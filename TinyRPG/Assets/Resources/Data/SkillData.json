@@ -26,6 +26,19 @@
         "range": "8",
         "prefab": "Projectile/Arrow"
       }
+    },
+    {
+      "id": "3",
+      "name": "È­»ì",
+      "cooldown": "0.7",
+      "damage": "10",
+      "skillType": "SkillProjectile",
+      "projectile": {
+        "name": "Arrow",
+        "speed": "17.0",
+        "range": "16",
+        "prefab": "Projectile/Arrow"
+      }
     }
   ]
 }

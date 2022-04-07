@@ -18,7 +18,7 @@ public class ObjectManager
     public void Add(ObjectInfo info, bool myPlayer = false)
     {
         GameObjectType type = GetObjectTypeById(info.ObjectId);
-        if(type == GameObjectType.Player)
+        if (type == GameObjectType.Player)
         {
             if (myPlayer)
             {
@@ -45,10 +45,10 @@ public class ObjectManager
                 pc.SyncPos();
             }
         }
-        else if(type == GameObjectType.Monster)
+        else if (type == GameObjectType.Monster)
         {
             GameObject monster = Managers.Resource.Instantiate("Creature/RedHero");
-            monster.name = info.Name;
+            monster.name = $"Monster_{info.ObjectId}";
             _objects.Add(info.ObjectId, monster);
 
             MonsterController mc = monster.GetComponent<MonsterController>();
@@ -57,7 +57,7 @@ public class ObjectManager
             mc.Stat = info.StatInfo;
             mc.SyncPos();
         }
-        else if(type == GameObjectType.Projectile)
+        else if (type == GameObjectType.Projectile)
         {
             GameObject go = Managers.Resource.Instantiate("Projectile/Arrow");
             go.name = "Arrow";
@@ -68,10 +68,10 @@ public class ObjectManager
             ac.Stat = info.StatInfo;
             ac.SyncPos();
         }
-        else if(type == GameObjectType.BossMob)
+        else if (type == GameObjectType.BossMob)
         {
             GameObject boss = Managers.Resource.Instantiate("Creature/BossMob");
-            boss.name = info.Name;
+            boss.name = "BossMob";
             _objects.Add(info.ObjectId, boss);
 
             BossController bc = boss.GetComponent<BossController>();
@@ -128,7 +128,7 @@ public class ObjectManager
 
     public void Clear()
     {
-        foreach(GameObject go in _objects.Values)
+        foreach (GameObject go in _objects.Values)
             Managers.Resource.Destroy(go);
         _objects.Clear();
         MyPlayer = null;

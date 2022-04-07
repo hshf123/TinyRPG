@@ -63,7 +63,7 @@ namespace Server
 
         public override void OnDisconnected(EndPoint endPoint)
         {
-            for (int i = 1; i < 3; i++)
+            for (int i = 1; i < 4; i++)
             {
                 Scenes scene = SceneManager.Instance.Find(i);
                 scene.Push(scene.LeaveGame, MyPlayer.Info.ObjectId);

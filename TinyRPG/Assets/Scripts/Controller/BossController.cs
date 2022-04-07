@@ -6,6 +6,5 @@ public class BossController : CreatureController
 {
     public override void UseSkill(int skillId)
     {
-        base.UseSkill(skillId);
     }
 }
