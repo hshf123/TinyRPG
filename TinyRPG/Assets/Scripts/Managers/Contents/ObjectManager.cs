@@ -68,6 +68,18 @@ public class ObjectManager
             ac.Stat = info.StatInfo;
             ac.SyncPos();
         }
+        else if(type == GameObjectType.BossMob)
+        {
+            GameObject boss = Managers.Resource.Instantiate("Creature/BossMob");
+            boss.name = info.Name;
+            _objects.Add(info.ObjectId, boss);
+
+            BossController bc = boss.GetComponent<BossController>();
+            bc.Id = info.ObjectId;
+            bc.PosInfo = info.PosInfo;
+            bc.Stat = info.StatInfo;
+            bc.SyncPos();
+        }
     }
 
     public void Remove(int id)

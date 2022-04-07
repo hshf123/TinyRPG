@@ -15,6 +15,7 @@ namespace Server.Game
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
         Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
         Dictionary<int, Projectile> _projectiles = new Dictionary<int, Projectile>();
+        Dictionary<int, BossMob> _bossMobs = new Dictionary<int, BossMob>();
 
         public Map Map { get; private set; } = new Map();
 
@@ -71,6 +72,9 @@ namespace Server.Game
                     foreach (Projectile p in _projectiles.Values)
                         spawnPacket.Objects.Add(p.Info);
 
+                    foreach (BossMob b in _bossMobs.Values)
+                        spawnPacket.Objects.Add(b.Info);
+
                     player.Session.Send(spawnPacket);
                 }
             }
@@ -91,6 +95,7 @@ namespace Server.Game
             else if (type == GameObjectType.BossMob)
             {
                 BossMob bossMob = newObject as BossMob;
+                _bossMobs.Add(newObject.Id, bossMob);
                 bossMob.Scene = this;
 
                 Map.ApplyMove(bossMob, new Vector2Int(bossMob.PosInfo.PosX, bossMob.PosInfo.PosY));
@@ -101,10 +106,8 @@ namespace Server.Game
                 S_Spawn spawnPacket = new S_Spawn();
                 spawnPacket.Objects.Add(newObject.Info);
                 foreach (Player p in _players.Values)
-                {
                     if (p.Id != newObject.Id)
                         p.Session.Send(spawnPacket);
-                }
             }
         }
 
@@ -142,6 +145,14 @@ namespace Server.Game
                 if (_projectiles.Remove(objectId, out projectile) == false)
                     return;
                 projectile.Scene = null;
+            }
+            else if (type == GameObjectType.BossMob)
+            {
+                BossMob boss = null;
+                if (_bossMobs.Remove(objectId, out boss) == false)
+                    return;
+                Map.ApplyLeave(boss);
+                boss.Scene = null;
             }
 
             // 타인들한테 정보 전송

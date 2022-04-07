@@ -44,19 +44,5 @@ namespace Server.Game
                 return null;
             }
         }
-
-        public void PortalScene(string scene)
-        {
-            switch(scene)
-            {
-                case "Lobby":
-                    break;
-                case "Huntingground":
-                    break;
-                case "Boss":
-                    // TODO
-                    break;
-            }
-        }
     }
 }

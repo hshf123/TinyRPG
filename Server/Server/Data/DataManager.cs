@@ -22,7 +22,7 @@ namespace Server.Data
         {
             StatDict = LoadJSon<StatData, int, StatInfo>("StatData").MakeDick();
             MonsterStatDict = LoadJSon<StatData, int, StatInfo>("MonsterStatData").MakeDick();
-            BossStatDict = LoadJSon<StatData, int, StatInfo>("MonsterStatData").MakeDick();
+            BossStatDict = LoadJSon<StatData, int, StatInfo>("BossStatData").MakeDick();
             SkillDict = LoadJSon<SkillData, int, Skill>("SkillData").MakeDick();
         }
 
