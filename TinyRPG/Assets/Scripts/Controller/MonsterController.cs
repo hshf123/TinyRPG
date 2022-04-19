@@ -18,5 +18,6 @@ public class MonsterController : CreatureController
 
     public override void UseSkill(int skillId)
     {
+        State = CreatureState.Skill;
     }
 }

@@ -105,7 +105,7 @@ namespace Server.Game
                 return;
             }
 
-            List<Vector2Int> path = Scene.Map.FindPath(CellPos, _target.CellPos, false);
+            List<Vector2Int> path = Scene.Map.FindPath(CellPos, _target.CellPos, true);
             if (path.Count < 2 || path.Count > _chaseRange)
             {
                 _target = null;

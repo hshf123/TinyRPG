@@ -39,7 +39,7 @@ namespace Server.Game
             else
             {
                 GameObject target = Scene.Map.Find(destPos);
-                if (target != null)
+                if (target != null && target != Owner)
                 {
                     // 피격판정
                     target.OnDamaged(this, Data.damage + Owner.StatInfo.Attack);

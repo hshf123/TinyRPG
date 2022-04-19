@@ -79,3 +79,6 @@ crashlytics-build.properties
 Server/PacketGenerator/obj
 Server/Server/obj
 Server/ServerCore/obj
+*.log
+*.dll
+TinyRPG/Library
